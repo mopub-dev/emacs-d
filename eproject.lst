@@ -1,0 +1,16 @@
+;; -*- mode: Lisp; -*-
+
+(setq prj-version "0.3")
+
+(setq prj-list
+      '(("geckimo_frontend" "/Users/jcp/development/geckimo_frontend")
+	("eproject-0.3" "/Users/jcp/Dropbox/.emacs.d/")))
+
+(setq prj-last-open "geckimo_frontend")
+
+(setq prj-frame-pos
+      '((top + -69)
+	(left . 1687)
+	(width . 267)
+	(height . 64)))
+
