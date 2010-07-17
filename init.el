@@ -1,41 +1,41 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; .emacs                                    ;;
 ;; John Pena (john.pena@alumni.duke.edu)     ;;
-;; -- Created in emacs --                    ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Load path
-(setq dotfiles-dir (file-name-directory
-                    (or (buffer-file-name) load-file-name)))
+;; Set the load path to the directory this file is in.
+;; Usually ~/.emacs.d/
+(setq dotfiles-dir (file-name-directory (or (buffer-file-name) load-file-name)))
+(setq plugins-dir (file-name-directory (concat dotfiles-dir "plugins/")))
 
 ;; Imports 
 (add-to-list 'load-path dotfiles-dir)
-(add-to-list 'load-path 
-	     (concat dotfiles-dir "yasnippet"))
-(add-to-list 'load-path
-	     (concat dotfiles-dir "auto-complete"))
-(add-to-list 'load-path
-	     (concat dotfiles-dir "plugins"))
+(add-to-list 'load-path plugins-dir)
+
+;; Load plugins
+(add-to-list 'load-path (concat plugins-dir "yasnippet/"))
+(add-to-list 'load-path (concat plugins-dir "auto-complete/"))
+(add-to-list 'load-path (concat plugins-dir "eproject/"))
+(add-to-list 'load-path (concat dotfiles-dir "color-theme/"))
 
 
 ;; initialize other .el files within .emacs.d
-(require 'functions)
-(require 'mappings)
+(require 'functions) ;; personal defuns
+(require 'mappings)  ;; personal key mappings
 
-(global-set-key "\C-x\C-m" 'execute-extended-command)
-(global-set-key "\C-c\C-m" 'execute-extended-command)
-
-;; yasnippet
+;; yasnippet (textmate-like snippets)
 (require 'yasnippet)
 (yas/initialize)
-(yas/load-directory (concat dotfiles-dir "yasnippet/snippets"))
+(yas/load-directory (concat plugins-dir "yasnippet/snippets"))
 (setq yas/prompt-functions '(yas/ido-prompt yas/dropdown-prompt))
 
+;; linum (line numbers)
+(require 'linum)
+(linum-mode)
 
 ;; Auto-completion
 (require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories 
-	     (concat dotfiles-dir "auto-complete/ac-dict"))
+(add-to-list 'ac-dictionary-directories (concat plugins-dir "auto-complete/ac-dict"))
 (ac-config-default)
 (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
 
@@ -49,22 +49,27 @@
 		   (not (eq (get-text-property (point) 'face)
 			    'font-lock-comment-face))))))
 
-
 ;; Colors!
 (require 'color-theme)
 (setq color-theme-is-global t)
 (color-theme-initialize)
-(color-theme-charcoal-black)
+(color-theme-omfg)
 (set-cursor-color "#fff000")
 
 
 ;; set the size of the frame
 (setq initial-frame-alist '((width . 87) (height . 42)))
 
+;; turn off toolbar/menubar/scrollbars
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 
 ;; display the time
 (display-time)
 
+;; line numbers in the bar above the minibuffer
+(line-number-mode 1)
 
 ;; ido.el support.
 ;; ido adds some functionality to buffer/file finding, its really useful
@@ -83,9 +88,6 @@
 (global-set-key "[" 'skeleton-pair-insert-maybe)
 (global-set-key "{" 'skeleton-pair-insert-maybe)
 (global-set-key "\"" 'skeleton-pair-insert-maybe)
-
-;; Open Next Line
-;;(require 'open-next-line)
 
 ;; Eshell tweaks
 ;; Visual commands like ipython
@@ -106,7 +108,6 @@
 
 
 ;; python compiling
-
 (defun my-compile ()
   "Use compile to run python programs"
   (interactive)
@@ -114,9 +115,3 @@
 (setq compilation-scroll-output t)
 
 (local-set-key "\C-c\C-c" 'my-compile)
-
-;; Flymake for python configuration
-(require 'python-flymake)
-
-(require 'smart-operator)
-

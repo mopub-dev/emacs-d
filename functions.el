@@ -22,7 +22,7 @@
   (untabify-buffer)
   (delete-trailing-whitespace))
 
-(defun insert-lorem ()
+(defun lorem ()
   (interactive)
   (insert "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do "
           "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim"
@@ -32,8 +32,17 @@
           "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in "
           "culpa qui officia deserunt mollit anim id est laborum."))
 
-(defun insert-date ()
+(defun isoD ()
   (interactive)
   (insert (format-time-string "%c" (current-time))))
+
+;; like C-k but it doesnt kill the line
+(defun duplicate-line ()
+  (interactive)
+  (kill-line)
+  (yank)
+  (move-beginning-of-line 1)
+)
+(global-set-key "\C-d" 'duplicate-line)
 
 (provide 'functions)
