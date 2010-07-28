@@ -1,3 +1,4 @@
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; .emacs                                    ;;
 ;; John Pena (john.pena@alumni.duke.edu)     ;;
@@ -31,13 +32,16 @@
 
 ;; linum (line numbers)
 (require 'linum)
-(linum-mode)
 
 ;; Auto-completion
 (require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories (concat plugins-dir "auto-complete/ac-dict"))
+(add-to-list 'ac-dictionary-directories 
+	     (concat plugins-dir "auto-complete/ac-dict"))
 (ac-config-default)
 (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
+
+;; STOP MAKING THOSE GOD DAMN BACKUP FILES 
+(setq make-backup-files nil)
 
 
 ;; Auto-fill-mode for python-mode only for comments
@@ -49,16 +53,14 @@
 		   (not (eq (get-text-property (point) 'face)
 			    'font-lock-comment-face))))))
 
-;; Colors!
+;; Colors/fonts
 (require 'color-theme)
 (setq color-theme-is-global t)
 (color-theme-initialize)
-(color-theme-omfg)
-(set-cursor-color "#fff000")
-
+(holy-fuck)
 
 ;; set the size of the frame
-(setq initial-frame-alist '((width . 87) (height . 42)))
+(setq initial-frame-alist '((width . 170) (height . 48)))
 
 ;; turn off toolbar/menubar/scrollbars
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
@@ -68,8 +70,9 @@
 ;; display the time
 (display-time)
 
-;; line numbers in the bar above the minibuffer
+;; line and column numbers in the bar above the minibuffer
 (line-number-mode 1)
+(column-number-mode 1)
 
 ;; ido.el support.
 ;; ido adds some functionality to buffer/file finding, its really useful
@@ -115,3 +118,5 @@
 (setq compilation-scroll-output t)
 
 (local-set-key "\C-c\C-c" 'my-compile)
+
+(set-default-font "-apple-Menlo-medium-normal-normal-*-*-*-*-*-m-0-iso10646-1")
