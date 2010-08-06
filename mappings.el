@@ -6,12 +6,10 @@
 
 ;; Remap some keys to their OSX equivalent
 (global-set-key "\M-z" 'undo)  ;; Undo
-;;(global-set-key "\M-c" 'copy) 
-;;(global-set-key "\M-x" 'cut)
-;;(global-set-key "\M-v" 'yank)
 
-
-(global-set-key "\C-x f" 'find-file)
+;; I occasionally hit C-x f instead of C-x C-f to find a file
+(global-set-key "\C-x\ f" 'ido-find-file)
+(global-set-key "\C-c\C-f" 'ido-find-file)
 
 ;; Map meta to c-x c-m and c-c c-m
 (global-set-key "\C-x\C-m" 'execute-extended-command)
@@ -24,7 +22,13 @@
 
 ;; Etc
 (global-set-key "\C-c\C-o" 'occur)
-(global-set-key "\M-g\M-g" 'goto-line)
+(global-set-key "\C-c\C-l" 'goto-line)
+
+;; Region Indenting
+(global-set-key "\M-\]" 'indent-region)
+
+;; Anything! I love this thing.
+(global-set-key (quote [(control return)]) 'anything)
 
 (windmove-default-keybindings) ;; Shift+direction keybindings
 
