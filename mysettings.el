@@ -34,14 +34,19 @@
 (setq skeleton-pair t)
 
 ;; set the default font
-(set-face-font 'default "-apple-Bitstream_Vera_Sans_Mono-medium-normal-normal-*-*-*-*-*-m-0-iso10646-1")
+(if (eq system-type 'darwin)
+    (set-face-font 'default "-apple-Monaco-medium-normal-normal-*-*-*-*-*-m-0-fontset-startup"))
+;    (set-face-font 'default "-apple-Bitstream_Vera_Sans_Mono-medium-normal-normal-*-*-*-*-*-m-0-iso10646-1"))
+
 
 ;; set the default font size. height is 10x the normal font
 ;; size. so :height 100 is 10pt 
-(set-face-attribute 'default nil :height 115)
+(set-face-attribute 'default nil :height 100)
 
 ;; set the size of the frame. i should come up with a better
 ;; way of doing this. 
 (setq initial-frame-alist '((width . 170) (height . 48)))
+
+(desktop-save-mode 1)
 
 (provide 'mysettings)

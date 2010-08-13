@@ -24,12 +24,9 @@
 (add-to-list 'load-path (concat plugins-dir "eproject/"))
 (add-to-list 'load-path (concat plugins-dir "ecb/"))
 (add-to-list 'load-path (concat dotfiles-dir "color-theme/"))
+(add-to-list 'load-path (concat plugins-dir "org/lisp"))
+(add-to-list 'load-path (concat plugins-dir "org/contrib/lisp"))
 (load-file "~/.emacs.d/plugins/cedet/common/cedet.el")
-
-;; initialize other .el files within .emacs.d
-(require 'mysettings)
-(require 'functions) ;; personal defuns
-(require 'mappings)  ;; personal key mappings
 
 ;; yasnippet (textmate-like snippets)
 (require 'yasnippet)
@@ -63,3 +60,18 @@
 
 ;; Anything. Launcher. It's awesome. 
 (require 'anything)
+
+;; Org-mode
+(require 'org-install)
+(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+(add-hook 'org-mode-hook 'turn-on-font-lock) ; not needed when global-font-lock-mode is on
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+
+;; initialize other .el files within .emacs.d
+(require 'mysettings)
+(require 'functions) ;; personal defuns
+(require 'mappings)  ;; personal key mappings
+
+;; init.el ends here

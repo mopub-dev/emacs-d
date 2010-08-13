@@ -16,9 +16,9 @@
 (global-set-key "\C-c\C-m" 'execute-extended-command)
 
 
-;; Indent / De-indent blocks
-;; (global-set-key "\C-[" 'indent-region)
-;; (global-set-key "\C-]" ')
+;; Comment/Uncomment region
+(global-set-key "\M-\." 'comment-region)
+(global-set-key "\M-\," 'uncomment-region)
 
 ;; Etc
 (global-set-key "\C-c\C-o" 'occur)
@@ -33,3 +33,5 @@
 (windmove-default-keybindings) ;; Shift+direction keybindings
 
 (provide 'mappings)
+
+;; mappings.el ends here
