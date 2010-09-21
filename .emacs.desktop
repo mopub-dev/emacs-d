@@ -2,7 +2,7 @@
 ;; --------------------------------------------------------------------------
 ;; Desktop File for Emacs
 ;; --------------------------------------------------------------------------
-;; Created Fri Aug 13 11:55:38 2010
+;; Created Mon Sep 20 15:11:19 2010
 ;; Desktop file format version 206
 ;; Emacs version 23.2.1
 
@@ -10,119 +10,20 @@
 (setq desktop-missing-file-warning nil)
 (setq tags-file-name nil)
 (setq tags-table-list nil)
-(setq search-ring '("definek" "print typ" "print type" "def trig" "required" "def trig" "def trigger" "#BOOK" "adjust" "print" "adjust" "if i.cu" "i.cum" "i.cumu" "cumulative_" "print '==="))
+(setq search-ring '("comment" "common" "warrants" "financing" "financial" "financing" "finished" "registr" " /" "installed" "twit" "conten"))
 (setq regexp-search-ring nil)
 (setq register-alist nil)
-(setq file-name-history '("/Users/jcp/organization/notes/unix.org" "/Users/jcp/.emacs.d/mysettings.el" "~/organization/notes/unix.org" "~/.emacs.d/" "/Users/jcp/.emacs.d/init.el" "/Users/jcp/.emacs.d/mysettings.el" "/Users/jcp/organization/readinglist.org" "/Users/jcp/development/fourohnine/blackbox/ray/valuation2.py" "/Users/jcp/development/fourohnine/blackbox/ray/valuation.py" "/Users/jcp/development/fourohnine/blackbox/valuation.py" "/Users/jcp/development/fourohnine/site_media/css/site.css" "/Users/jcp/development/fourohnine/templates/advisor/base.html"))
+(setq file-name-history '("/Users/jcp/development/fourohnine/TODO.org" "/Users/jcp/development/fourohnine/templates/questionnaire/warrants.html" "/Users/jcp/development/fourohnine/questionnaire/views.py" "/Users/jcp/development/fourohnine/questionnaire/urls.py" "/Users/jcp/development/fourohnine/templates/questionnaire/financial_rounds.html" "/Users/jcp/development/fourohnine/questionnaire/forms.py" "/Users/jcp/development/fourohnine/templates/questionnaire/questionnaire_base.html" "/Users/jcp/development/fourohnine/templates/questionnaire/appropriateness.html" "/Users/jcp/development/fourohnine/TODO.org" "/Users/jcp/organization/todo.org" "/Users/jcp/.emacs.d/init.el" "/Users/jcp/development/fourohnine/advisor/views.py" "/Users/jcp/development/fourohnine/templates/advisor/contact.html" "/Users/jcp/organization/work/Geckimo.org" "/Users/jcp/organization/journal/2010-9-18.org" "/Users/jcp/development/fourohnine/templates/questionnaire/guideline_companies.html" "/Users/jcp/development/fourohnine/questionnaire/views.py" "/Users/jcp/development/fourohnine/advisor/views.py" "/Users/jcp/development/fourohnine/templates/advisor/company_employees.html" "/Users/jcp/development/fourohnine/settings.py" "/Users/jcp/development/fourohnine/templates/advisor/info_about.html" "/Users/jcp/development/fourohnine/site_media/css/questionnaire.css" "/Users/jcp/development/fourohnine/site_media/css/site.css" "/Users/jcp/development/fourohnine/templates/advisor/home.html" "/Users/jcp/development/fourohnine/templates/advisor/info_valuation.html" "/Users/jcp/development/fourohnine/advisor/urls.py" "/Users/jcp/development/fourohnine/advisor/views.py" "/Users/jcp/development/fourohnine/templates/advisor/base.html" "/Users/jcp/organization/burningman.org" "/Users/jcp/organization/work/409.org"))
 
 ;; Buffer section -- buffers listed in same order as in buffer list:
 (desktop-create-buffer 206
-  "/Users/jcp/organization/notes/unix.org"
-  "unix.org"
-  'org-mode
-  nil
-  696
-  '(807 nil)
-  nil
-  nil
-  '((buffer-file-coding-system . undecided-unix) (truncate-lines . t)))
-
-(desktop-create-buffer 206
-  "/Users/jcp/development/fourohnine/blackbox/valuation.py"
-  "valuation.py"
-  'python-mode
-  '(yas/minor-mode linum-mode auto-complete-mode)
-  1
-  '(4875 nil)
-  nil
-  nil
-  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . undecided-unix)))
-
-(desktop-create-buffer 206
-  "/Users/jcp/development/fourohnine/blackbox/blackscholes.py"
-  "blackscholes.py"
-  'python-mode
-  '(yas/minor-mode auto-complete-mode)
-  2787
-  '(164 nil)
-  nil
-  nil
-  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . undecided-unix)))
-
-(desktop-create-buffer 206
-  "/Users/jcp/.emacs.d/init.el"
-  "init.el"
-  'emacs-lisp-mode
-  '(yas/minor-mode auto-complete-mode)
-  2488
-  '(1455 nil)
-  nil
-  nil
-  '((buffer-file-coding-system . undecided-unix)))
-
-(desktop-create-buffer 206
-  "/Users/jcp/.emacs.d/mysettings.el"
-  "mysettings.el"
-  'emacs-lisp-mode
-  '(yas/minor-mode auto-complete-mode)
-  1448
-  '(nil nil)
-  nil
-  nil
-  '((buffer-file-coding-system . undecided-unix)))
-
-(desktop-create-buffer 206
-  "/Users/jcp/organization/readinglist.org"
-  "readinglist.org"
-  'org-mode
-  nil
-  1
-  '(nil nil)
-  nil
-  nil
-  '((buffer-file-coding-system . undecided-unix) (truncate-lines . t)))
-
-(desktop-create-buffer 206
-  "/Users/jcp/development/fourohnine/blackbox/ray/valuation.py"
-  "valuation.py<2>"
-  'python-mode
-  '(yas/minor-mode auto-complete-mode)
-  8468
-  '(9908 nil)
-  nil
-  nil
-  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . undecided-unix)))
-
-(desktop-create-buffer 206
-  "/Users/jcp/development/fourohnine/blackbox/ray/valuation2.py"
-  "valuation2.py"
-  'python-mode
-  '(yas/minor-mode auto-complete-mode)
-  18340
-  '(22336 nil)
-  nil
-  nil
-  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . undecided-dos)))
-
-(desktop-create-buffer 206
-  "/Users/jcp/development/fourohnine/site_media/css/site.css"
-  "site.css"
-  'css-mode
-  '(yas/minor-mode auto-complete-mode)
-  143
-  '(nil nil)
-  nil
-  nil
-  '((buffer-file-coding-system . undecided-unix)))
-
-(desktop-create-buffer 206
-  "/Users/jcp/development/fourohnine/templates/advisor/base.html"
-  "base.html"
+  "/Users/jcp/development/fourohnine/templates/questionnaire/start.html"
+  "start.html"
   'html-mode
-  '(yas/minor-mode)
-  1789
-  '(nil nil)
+  '(visual-line-mode global-visual-line-mode yas/minor-mode)
+  4692
+  '(3564 nil)
   nil
   nil
-  '((buffer-file-coding-system . utf-8-unix)))
+  '((buffer-file-coding-system . undecided-unix) (truncate-lines)))
 

@@ -26,6 +26,7 @@
 (add-to-list 'load-path (concat dotfiles-dir "color-theme/"))
 (add-to-list 'load-path (concat plugins-dir "org/lisp"))
 (add-to-list 'load-path (concat plugins-dir "org/contrib/lisp"))
+(add-to-list 'load-path (concat plugins-dir "twit/"))
 (load-file "~/.emacs.d/plugins/cedet/common/cedet.el")
 
 ;; yasnippet (textmate-like snippets)
@@ -41,16 +42,16 @@
 (require 'ecb)
 
 ;; Auto-completion
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories (concat plugins-dir "auto-complete/ac-dict"))
-(ac-config-default)
-(define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
+;; (require 'auto-complete-config)
+;; (add-to-list 'ac-dictionary-directories (concat plugins-dir "auto-complete/ac-dict"))
+;; (ac-config-default)
+;; (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
 
 ;; Colors/fonts
 (require 'color-theme)
 (setq color-theme-is-global t)
 (color-theme-initialize)
-(holy-fuck) ; my color theme
+(color-theme-omfg) ; my color theme
 
 ;; ido.el support.
 ;; ido adds some functionality to buffer/file finding, its really useful
@@ -69,8 +70,9 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 
+
 ;; initialize other .el files within .emacs.d
-(require 'mysettings)
+(require 'mysettings) ;; personal settings
 (require 'functions) ;; personal defuns
 (require 'mappings)  ;; personal key mappings
 
