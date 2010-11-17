@@ -2,7 +2,7 @@
 ;; --------------------------------------------------------------------------
 ;; Desktop File for Emacs
 ;; --------------------------------------------------------------------------
-;; Created Mon Sep 20 15:11:19 2010
+;; Created Tue Oct 19 15:04:13 2010
 ;; Desktop file format version 206
 ;; Emacs version 23.2.1
 
@@ -10,20 +10,108 @@
 (setq desktop-missing-file-warning nil)
 (setq tags-file-name nil)
 (setq tags-table-list nil)
-(setq search-ring '("comment" "common" "warrants" "financing" "financial" "financing" "finished" "registr" " /" "installed" "twit" "conten"))
+(setq search-ring '("fill" "captable" "gourley" "legend" "determination" "fr.error" "\"addform\"" "address_date" "commonstock" "commonst" "common" "as_table" "astable" "round" "financing" "key_employees("))
 (setq regexp-search-ring nil)
 (setq register-alist nil)
-(setq file-name-history '("/Users/jcp/development/fourohnine/TODO.org" "/Users/jcp/development/fourohnine/templates/questionnaire/warrants.html" "/Users/jcp/development/fourohnine/questionnaire/views.py" "/Users/jcp/development/fourohnine/questionnaire/urls.py" "/Users/jcp/development/fourohnine/templates/questionnaire/financial_rounds.html" "/Users/jcp/development/fourohnine/questionnaire/forms.py" "/Users/jcp/development/fourohnine/templates/questionnaire/questionnaire_base.html" "/Users/jcp/development/fourohnine/templates/questionnaire/appropriateness.html" "/Users/jcp/development/fourohnine/TODO.org" "/Users/jcp/organization/todo.org" "/Users/jcp/.emacs.d/init.el" "/Users/jcp/development/fourohnine/advisor/views.py" "/Users/jcp/development/fourohnine/templates/advisor/contact.html" "/Users/jcp/organization/work/Geckimo.org" "/Users/jcp/organization/journal/2010-9-18.org" "/Users/jcp/development/fourohnine/templates/questionnaire/guideline_companies.html" "/Users/jcp/development/fourohnine/questionnaire/views.py" "/Users/jcp/development/fourohnine/advisor/views.py" "/Users/jcp/development/fourohnine/templates/advisor/company_employees.html" "/Users/jcp/development/fourohnine/settings.py" "/Users/jcp/development/fourohnine/templates/advisor/info_about.html" "/Users/jcp/development/fourohnine/site_media/css/questionnaire.css" "/Users/jcp/development/fourohnine/site_media/css/site.css" "/Users/jcp/development/fourohnine/templates/advisor/home.html" "/Users/jcp/development/fourohnine/templates/advisor/info_valuation.html" "/Users/jcp/development/fourohnine/advisor/urls.py" "/Users/jcp/development/fourohnine/advisor/views.py" "/Users/jcp/development/fourohnine/templates/advisor/base.html" "/Users/jcp/organization/burningman.org" "/Users/jcp/organization/work/409.org"))
+(setq file-name-history '("/Users/jcp/.emacs.d/mysettings.el" "/Users/jcp/.emacs.d/init.el" "/Users/jcp/development/fourohnine/bb/valueAllocator.py" "/Users/jcp/development/fourohnine/bb/DLOM.py" "/Users/jcp/development/fourohnine/bb/valueAllocator.py" "/Users/jcp/development/fourohnine/urls.py" "/Users/jcp/development/fourohnine/questionnaire/urls.py" "/Users/jcp/development/fourohnine/reviewer/urls.py" "/Users/jcp/development/fourohnine/questionnaire/views.py" "/Users/jcp/development/fourohnine/reviewer/views.py" "/Users/jcp/development/fourohnine/bb/reportgeneration.py" "/Users/jcp/development/bookclub/settings.py" "/Users/jcp/development/fourohnine/settings.py" "/Users/jcp/development/fourohnine/bb/reportgeneration.py" "/Users/jcp/development/fourohnine/questionnaire/urls.py" "/Users/jcp/development/fourohnine/questionnaire/models.py" "/Users/jcp/development/fourohnine/questionnaire/views.py" "/Users/jcp/development/fourohnine/templates/questionnaire/regularform.html" "/Users/jcp/development/fourohnine/templates/questionnaire/tableform.html" "/Users/jcp/development/penapalooza/yeah.css" "/Users/jcp/development/penapalooza/index.html" "/Users/jcp/development/mahblahg/blahg/views.py" "/Users/jcp/development/fourohnine/questionnaire/models.py" "/Users/jcp/development/fourohnine/advisor/models.py" "/Users/jcp/development/mahblahg/blahg/models.py" "/Users/jcp/development/fourohnine/questionnaire/models.py" "/Users/jcp/development/fourohnine/templates/questionnaire/tableform.html" "/Users/jcp/development/fourohnine/questionnaire/forms.py" "/Users/jcp/development/fourohnine/questionnaire/models.py" "/Users/jcp/development/fourohnine/site_media/css/questionnaire.css"))
 
 ;; Buffer section -- buffers listed in same order as in buffer list:
 (desktop-create-buffer 206
-  "/Users/jcp/development/fourohnine/templates/questionnaire/start.html"
-  "start.html"
-  'html-mode
-  '(visual-line-mode global-visual-line-mode yas/minor-mode)
-  4692
-  '(3564 nil)
+  "/Users/jcp/.emacs.d/init.el"
+  "init.el"
+  'emacs-lisp-mode
+  '(yas/minor-mode)
+  2569
+  '(nil nil)
   nil
   nil
-  '((buffer-file-coding-system . undecided-unix) (truncate-lines)))
+  '((buffer-file-coding-system . undecided-unix)))
+
+(desktop-create-buffer 206
+  "/Users/jcp/development/fourohnine/bb/DLOM.py"
+  "DLOM.py"
+  'python-mode
+  '(yas/minor-mode)
+  1516
+  '(nil nil)
+  nil
+  nil
+  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . undecided-dos)))
+
+(desktop-create-buffer 206
+  "/Users/jcp/development/fourohnine/bb/reportgeneration.py"
+  "reportgeneration.py"
+  'python-mode
+  '(yas/minor-mode linum-mode)
+  2427
+  '(2328 nil)
+  nil
+  nil
+  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . undecided-unix)))
+
+(desktop-create-buffer 206
+  "/Users/jcp/development/fourohnine/questionnaire/models.py"
+  "models.py"
+  'python-mode
+  '(yas/minor-mode)
+  10164
+  '(1 nil)
+  nil
+  nil
+  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . undecided-unix)))
+
+(desktop-create-buffer 206
+  "/Users/jcp/development/fourohnine/urls.py"
+  "urls.py<3>"
+  'python-mode
+  '(yas/minor-mode)
+  934
+  '(nil nil)
+  nil
+  nil
+  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . undecided-unix)))
+
+(desktop-create-buffer 206
+  "/Users/jcp/development/fourohnine/reviewer/urls.py"
+  "urls.py"
+  'python-mode
+  '(yas/minor-mode)
+  122
+  '(95 nil)
+  nil
+  nil
+  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . undecided-unix)))
+
+(desktop-create-buffer 206
+  "/Users/jcp/development/fourohnine/questionnaire/urls.py"
+  "urls.py<2>"
+  'python-mode
+  '(yas/minor-mode)
+  100
+  '(100 nil)
+  nil
+  nil
+  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . undecided-unix)))
+
+(desktop-create-buffer 206
+  "/Users/jcp/development/fourohnine/questionnaire/views.py"
+  "views.py<2>"
+  'python-mode
+  '(yas/minor-mode)
+  604
+  '(1 nil)
+  nil
+  nil
+  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . undecided-unix)))
+
+(desktop-create-buffer 206
+  "/Users/jcp/development/fourohnine/reviewer/views.py"
+  "views.py"
+  'python-mode
+  '(yas/minor-mode)
+  810
+  '(811 nil)
+  nil
+  nil
+  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . undecided-unix)))
 

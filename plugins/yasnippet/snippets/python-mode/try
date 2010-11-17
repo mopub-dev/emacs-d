@@ -1,0 +1,6 @@
+# expand-env: ((yas/indent-line 'fixed) (yas/wrap-around-region 'nil))
+# --
+try:
+    $1
+except ${2:Exception}, error:
+    $3

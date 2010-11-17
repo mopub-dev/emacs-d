@@ -16,10 +16,6 @@
 (global-set-key "\C-c\C-m" 'execute-extended-command)
 
 
-;; Comment/Uncomment region
-(global-set-key "\M-\." 'comment-region)
-(global-set-key "\M-\," 'uncomment-region)
-
 ;; Etc
 (global-set-key "\C-c\C-o" 'occur)
 (global-set-key "\C-c\C-l" 'goto-line)
@@ -28,7 +24,7 @@
 (global-set-key "\M-\]" 'indent-region)
 
 ;; Anything! I love this thing.
-(global-set-key (quote [(control return)]) 'anything)
+(global-set-key (quote [(meta return)]) 'anything)
 
 (windmove-default-keybindings) ;; Shift+direction keybindings
 

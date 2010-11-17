@@ -1,0 +1,21 @@
+# -*- mode: snippet -*-
+# name: jquery
+# key: jquery
+# binding: direct-keybinding
+# type: command
+# --
+(function(\$) {
+    /*
+    *
+    *
+    \$.fn.$1 = function(options) {
+         // set default options
+	 var defaults = {
+	     $2: $3,
+	 }
+
+	 var opts = \$.extend(defaults, options);
+    };
+
+})(jQuery);
+	      

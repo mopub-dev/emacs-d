@@ -30,7 +30,15 @@
           "aliquip ex ea commodo consequat. Duis aute irure dolor in "
           "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla "
           "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in "
-          "culpa qui officia deserunt mollit anim id est laborum."))
+          "culpa qui officia deserunt mollit anim id est laborum.")) 
+
+(defun lorizzle ()
+  (interactive)
+  (insert "Lorizzle ipsum dolizzle get down get down get down get"
+	  "down, consectetuer adipiscing elit. Ma nizzle dope velit, black volutpat,"
+          "suscipit pimpin', check out this vizzle, yeah."))
+
+;;Lorizzle ipsum dolizzle get down get down get down getdown, consectetuer adipiscing elit. Ma nizzle dope velit, black volutpat,suscipit pimpin', re-up this vizzle, yeah.
 
 (defun isoD ()
   (interactive)
@@ -41,8 +49,33 @@
   (interactive)
   (kill-line)
   (yank)
-  (move-beginning-of-line 1)
-)
+  (move-beginning-of-line 1))
 (global-set-key "\C-d" 'duplicate-line)
+
+
+(defun tag-word-or-region (tag)
+    "Surround current word or region with a given tag."
+    (interactive "sEnter tag (without <>): ")
+    (let (pos1 pos2 bds start-tag end-tag)
+        (setq start-tag (concat "<" tag ">"))
+        (setq end-tag (concat "</" tag ">"))
+        (if (and transient-mark-mode mark-active)
+            (progn
+                (goto-char (region-end))
+                (insert end-tag)
+                (goto-char (region-beginning))
+                (insert start-tag))
+            (progn
+                (setq bds (bounds-of-thing-at-point 'symbol))
+                (goto-char (cdr bds))
+                (insert end-tag)
+                 (goto-char (car bds))
+                 (insert start-tag)))))
+(global-set-key "\C-xt" 'tag-word-or-region)
+
+;;(defun tag-line (tag)
+;;  "Surrounds the given line with a tag"
+;;  (interactive)
+;;  ())
 
 (provide 'functions)
