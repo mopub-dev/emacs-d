@@ -28,6 +28,10 @@
 
 (windmove-default-keybindings) ;; Shift+direction keybindings
 
+(global-set-key "\C-p" 'replace-string)
+
+(global-set-key [f1] 'ns-toggle-fullscreen)
+
 (provide 'mappings)
 
 ;; mappings.el ends here

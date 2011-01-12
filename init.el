@@ -10,6 +10,11 @@
 (add-to-list 'load-path dotfiles-dir)
 (add-to-list 'load-path plugins-dir)
 
+;;; interfacing with ELPA, the package archive.
+;; (when
+;;     (load
+;;      (expand-file-name "~/.emacs.d/elpa/package.el"))
+;;   (package-initialize))
 
 ;;;;;;;;;;;;;;;;;;
 ;; Load plugins ;;
@@ -22,7 +27,7 @@
 (add-to-list 'load-path (concat dotfiles-dir "color-theme/"))
 (add-to-list 'load-path (concat plugins-dir "org/lisp"))
 (add-to-list 'load-path (concat plugins-dir "org/contrib/lisp"))
-(add-to-list 'load-path (concat plugins-dir "twit/"))
+;(add-to-list 'load-path (concat plugins-dir "twit/"))
 (load-file "~/.emacs.d/plugins/cedet/common/cedet.el")
 (load-file "~/.emacs.d/plugins/nxhtml/autostart.el")
 
@@ -142,6 +147,31 @@
 ;; and set accordingly. But it doesn't, because I'm lazy.
 (setq initial-frame-alist '((width . 170) (height . 48)))
 
+;; These are some settings for erc, the irc client I use in emacs
+(erc-timestamp-mode t)
+;; Notify me if someone calls me
+(erc-match-mode t)
+;; Some basic settings for erc package
+(setq erc-server "irc.freenode.net" 
+      erc-port 6667 
+      erc-nick "heauxbag"
+      erc-user-full-name "Wub Womper"
+      erc-email-userid "heaxuabg"
+      erc-prompt-for-password t
+      erc-fill-prefix "      "
+      erc-auto-query t
+;      erc-pals '("list" "of" "people" "i" "know")
+      erc-keywords '('nick "geckimo", "409advisor", "409", "409A")
+    
+      erc-timestamp-only-if-changed-flag nil
+      erc-timestamp-format "%H:%M "
+      erc-insert-timestamp-function 'erc-insert-timestamp-left
+      erc-log-channels t
+      erc-log-channels-directory "~/.irclogs"
+      erc-log-insert-log-on-open t
+)
+
+
 ;; Last but not least..
 ;; Real lisp hackers use the lambda character
 ;; (im not a real lisp hacker)
@@ -155,6 +185,8 @@
 (add-hook 'lisp-interactive-mode-hook 'sm-lamba-mode-hook)
 (add-hook 'scheme-mode-hook 'sm-lambda-mode-hook)
 
+(setq tags-file-name "~/TAGS")
+(global-set-key (kbd "<f5>") 'find-tag)
 
 (require 'functions) ;; personal defuns
 (require 'mappings)  ;; personal key mappings
