@@ -15,6 +15,12 @@
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 (global-set-key "\C-c\C-m" 'execute-extended-command)
 
+;; Font size
+(define-key global-map (kbd "C-+") 'text-scale-increase)
+(define-key global-map (kbd "C--") 'text-scale-decrease)
+
+;; Jump to a definition in the current file. (This is awesome.)
+(global-set-key (kbd "C-x C-i") 'ido-imenu)
 
 ;; Etc
 (global-set-key "\C-c\C-o" 'occur)
@@ -31,6 +37,14 @@
 (global-set-key "\C-p" 'replace-string)
 
 (global-set-key [f1] 'ns-toggle-fullscreen)
+(global-set-key [f2] 'ansi-term)
+(global-set-key [f3] (lambda () (interactive) (eshell t)))
+(global-set-key [f4] 'indent-buffer)
+
+
+;; Perform general cleanup.
+(global-set-key (kbd "C-c n") 'cleanup-buffer)
+
 
 (provide 'mappings)
 

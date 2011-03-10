@@ -1,35 +1,42 @@
-;; if we don't laugh we'll cry
+;; john.pena@gmail.com
+
+
+;; Turn off toolbar/menubar/scrollbars
+;; (Do it immediately)
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 
 
 ;; Set the load path to the directory this file is in.
 ;; Usually ~/.emacs.d/
-(setq dotfiles-dir (file-name-directory (or (buffer-file-name) load-file-name)))
-(setq plugins-dir (file-name-directory (concat dotfiles-dir "plugins/")))
+(setq dotfiles-dir (file-name-directory
+		    (or (buffer-file-name) load-file-name)))
+
+(setq plugins-dir (file-name-directory
+		   (concat dotfiles-dir "plugins/")))
 
 ;; Imports 
 (add-to-list 'load-path dotfiles-dir)
 (add-to-list 'load-path plugins-dir)
 
-;;; interfacing with ELPA, the package archive.
-;; (when
-;;     (load
-;;      (expand-file-name "~/.emacs.d/elpa/package.el"))
-;;   (package-initialize))
-
-;;;;;;;;;;;;;;;;;;
 ;; Load plugins ;;
-;;;;;;;;;;;;;;;;;;
 
 (add-to-list 'load-path (concat plugins-dir "yasnippet/"))
 (add-to-list 'load-path (concat plugins-dir "auto-complete/"))
-(add-to-list 'load-path (concat plugins-dir "eproject/"))
-(add-to-list 'load-path (concat plugins-dir "ecb/"))
 (add-to-list 'load-path (concat dotfiles-dir "color-theme/"))
 (add-to-list 'load-path (concat plugins-dir "org/lisp"))
 (add-to-list 'load-path (concat plugins-dir "org/contrib/lisp"))
-;(add-to-list 'load-path (concat plugins-dir "twit/"))
-(load-file "~/.emacs.d/plugins/cedet/common/cedet.el")
 (load-file "~/.emacs.d/plugins/nxhtml/autostart.el")
+
+
+(require 'cl)
+(require 'saveplace)
+(require 'ffap)
+(require 'uniquify)
+(require 'ansi-color)
+(require 'recentf)
+
 
 ;; yasnippet (textmate-like snippets)
 (require 'yasnippet)
@@ -44,14 +51,12 @@
 ;; linum (line numbers)
 (require 'linum)
 
-;; ecb, does directory listings
-(require 'ecb)
-
 ;; Colors/fonts
 (require 'color-theme)
 (setq color-theme-is-global t)
 (color-theme-initialize)
-(color-theme-hellacious-j) ; my color theme
+(color-theme-twilight)
+;;(color-theme-hellacious-j) ; my color theme
 
 ;; ido.el support.
 ;; ido adds some functionality to buffer/file finding, its really useful
@@ -63,9 +68,6 @@
 ;; Anything launcher. It's awesome, like quicksilver for emacs
 (require 'anything)
 
-;; Quack, a Scheme interpreter
-(require 'quack)
-
 ;; Org-mode
 (require 'org-install)
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
@@ -74,11 +76,11 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 
+;; js2-mode, a better javascript mode
+(autoload 'js2-mode "js2" nil t)
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
-
-;;;;;;;;;;;;;;;;;
 ;; My settings ;;
-;;;;;;;;;;;;;;;;;
 
 ;; Makes the window transparent.
 ;;(set-frame-parameter (selected-frame) 'alpha '(<active> [<inactive>]))
@@ -106,11 +108,6 @@
 ;; Shut the fuck up when I load emacs!! Just take me to *scratch*
 (setq inhibit-startup-echo-area-message t)
 (setq inhibit-startup-message t)
-
-;; Turn off toolbar/menubar/scrollbars
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 
 ;; Display the time in the minibuffer
 (display-time)
@@ -154,15 +151,14 @@
 ;; Some basic settings for erc package
 (setq erc-server "irc.freenode.net" 
       erc-port 6667 
-      erc-nick "heauxbag"
+      erc-nick "streblo"
       erc-user-full-name "Wub Womper"
-      erc-email-userid "heaxuabg"
+      erc-email-userid "streblo"
       erc-prompt-for-password t
       erc-fill-prefix "      "
       erc-auto-query t
 ;      erc-pals '("list" "of" "people" "i" "know")
-      erc-keywords '('nick "geckimo", "409advisor", "409", "409A")
-    
+      erc-keywords '("streblo" "geckimo", "409advisor", "409", "409A")   
       erc-timestamp-only-if-changed-flag nil
       erc-timestamp-format "%H:%M "
       erc-insert-timestamp-function 'erc-insert-timestamp-left
@@ -172,38 +168,22 @@
 )
 
 
-;; Last but not least..
-;; Real lisp hackers use the lambda character
-;; (im not a real lisp hacker)
-(defun sm-lambda-mode-hook ()
-  (font-lock-add-keywords
-   nil `(("\\<lambda\\>"
-   (0 (progn (compose-region (match-beginning 0) (match-end 0)
-        ,(make-char 'greek-iso8859-7 107))
-      nil))))))
-(add-hook 'emacs-lisp-mode-hook 'sm-lambda-mode-hook)
-(add-hook 'lisp-interactive-mode-hook 'sm-lamba-mode-hook)
-(add-hook 'scheme-mode-hook 'sm-lambda-mode-hook)
+(tooltip-mode -1)
+(setq tooltip-use-echo-area t)
 
+
+;; Set up tags
 (setq tags-file-name "~/TAGS")
 (global-set-key (kbd "<f5>") 'find-tag)
 
+;; Deleted files go to the trash
+(setq delete-by-moving-to-trash t)
 
-(setq swank-clojure-binary "clojure")
-(require 'clojure-auto)
-(require 'swank-clojure-autoload)
+;; Show changes when asking to save
+(highlight-changes-mode)
 
-
+;; Load my personal files
 (require 'functions) ;; personal defuns
 (require 'mappings)  ;; personal key mappings
 
 ;; init.el ends here
-;;; This was installed by package-install.el.
-;;; This provides support for the package system and
-;;; interfacing with ELPA, the package archive.
-;;; Move this code earlier if you want to reference
-;;; packages in your .emacs.
-(when
-    (load
-     (expand-file-name "~/.emacs.d/elpa/package.el"))
-  (package-initialize))
