@@ -120,7 +120,7 @@ Symbols matching the text at point are put first in the completion list."
 
 (defun indent-buffer ()
   (interactive)
-  (indent-region (point-min) (point-max))
+  (indent-region (point-min) (point-max)))
 
 
 (defun sudo-edit (&optional arg)
