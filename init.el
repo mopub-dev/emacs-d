@@ -11,21 +11,23 @@
 ;; Set the load path to the directory this file is in.
 ;; Usually ~/.emacs.d/
 (setq dotfiles-dir (file-name-directory
-		    (or (buffer-file-name) load-file-name)))
+                    (or (buffer-file-name) load-file-name)))
 
 (setq plugins-dir (file-name-directory
-		   (concat dotfiles-dir "plugins/")))
+                   (concat dotfiles-dir "plugins/")))
 
-;; Imports 
+;; Imports
 (add-to-list 'load-path dotfiles-dir)
 (add-to-list 'load-path plugins-dir)
 
 ;; Load plugins ;;
 
 (add-to-list 'load-path (concat plugins-dir "yasnippet/"))
+(add-to-list 'load-path (concat plugins-dir "rails/"))
 (add-to-list 'load-path (concat plugins-dir "auto-complete/"))
 (add-to-list 'load-path (concat plugins-dir "color-theme/"))
 (add-to-list 'load-path (concat plugins-dir "org/lisp"))
+(add-to-list 'load-path (concat plugins-dir "emacs-jabber/"))
 (add-to-list 'load-path (concat plugins-dir "org/contrib/lisp"))
 (load-file "~/.emacs.d/plugins/nxhtml/autostart.el")
 
@@ -36,7 +38,15 @@
 (require 'uniquify)
 (require 'ansi-color)
 (require 'recentf)
+(require 'hexrgb)
+(require 'snippet)
+(require 'find-recursive)
 
+(require 'ruby-mode)
+(require 'ruby-electric)
+(require 'inf-ruby)
+(require 'rails)
+(require 'scss-mode)
 
 ;; yasnippet (textmate-like snippets)
 (require 'yasnippet)
@@ -45,7 +55,7 @@
 (setq yas/prompt-functions '(yas/ido-prompt yas/dropdown-prompt))
 
 ;; nXHTML (has django stuff)
-(setq mumamo-background-colors nil) 
+(setq mumamo-background-colors nil)
 (add-to-list 'auto-mode-alist '("\\.html$" . django-html-mumamo-mode))
 
 ;; linum (line numbers)
@@ -55,7 +65,7 @@
 (require 'color-theme)
 (setq color-theme-is-global t)
 (color-theme-initialize)
-(color-theme-twilight)
+(color-theme-hellacious-j)
 ;;(color-theme-hellacious-j) ; my color theme
 
 ;; ido.el support.
@@ -64,6 +74,10 @@
 (ido-mode t)
 (setq ido-enable-flex-matching t) ;; enable fuzzy matching
 (setq ido-create-new-buffer 'always) ;; make new buffers on the fly, dont ask to confirm
+
+;; uniquify renames buffers to be unique, so no more index.html | index.html<2>
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
 
 ;; Anything launcher. It's awesome, like quicksilver for emacs
 (require 'anything)
@@ -78,6 +92,15 @@
 
 (require 'dpaste)
 (global-set-key "\C-cd" 'dpaste-region)
+
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+
+(require 'jabber)
+(setq jabber-account-list
+      '(("john.pena@gmail.com"
+         (:network-server . "talk.google.com")
+         (:connection-type . ssl))))
 
 ;; Load my personal files
 (require 'settings) ;; personal settings

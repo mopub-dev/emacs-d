@@ -8,8 +8,8 @@
 ;; Notify me if someone calls me
 (erc-match-mode t)
 ;; Some basic settings for erc package
-(setq erc-server "irc.freenode.net" 
-      erc-port 6667 
+(setq erc-server "irc.freenode.net"
+      erc-port 6667
       erc-nick "streblo"
       erc-user-full-name "Wub Womper"
       erc-email-userid "streblo"
@@ -17,7 +17,7 @@
       erc-fill-prefix "      "
       erc-auto-query t
 ;      erc-pals '("list" "of" "people" "i" "know")
-      erc-keywords '("streblo" "geckimo", "409advisor", "409", "409A")   
+      erc-keywords '("streblo" "geckimo", "409advisor", "409", "409A")
       erc-timestamp-only-if-changed-flag nil
       erc-timestamp-format "%H:%M "
       erc-insert-timestamp-function 'erc-insert-timestamp-left
@@ -62,7 +62,7 @@
 (setq make-backup-files nil)
 
 ;; Fuck you for making me type in 'yes' or 'no' instead of 'y' or 'n'. Gah!
-(fset 'yes-or-no-p 'y-or-n-p) 
+(fset 'yes-or-no-p 'y-or-n-p)
 
 ;; Shut the fuck up when I load emacs!! Just take me to *scratch*
 (setq inhibit-startup-echo-area-message t)
@@ -121,11 +121,13 @@
 ;; This is hugely helpful when you're using carbon emacs on OSX.
 ;; Only tested in emacs 23.
 (defun set-exec-path-from-shell-PATH ()
-  (let ((path-from-shell 
-      (replace-regexp-in-string "[[:space:]\n]*$" "" 
+  (let ((path-from-shell
+      (replace-regexp-in-string "[[:space:]\n]*$" ""
         (shell-command-to-string "$SHELL -l -c 'echo $PATH'"))))
     (setenv "PATH" path-from-shell)
     (setq exec-path (split-string path-from-shell path-separator))))
 (when (equal system-type 'darwin) (set-exec-path-from-shell-PATH))
+
+(tool-bar-mode t)
 
 (provide 'settings)
