@@ -66,7 +66,11 @@
 (setq color-theme-is-global t)
 (color-theme-initialize)
 (color-theme-hellacious-j)
-;;(color-theme-hellacious-j) ; my color theme
+
+
+(require 'highlight-current-line)
+(highlight-current-line-on t)
+(set-face-background 'highlight-current-line-face "#333") ;; To customize the background color
 
 ;; ido.el support.
 ;; ido adds some functionality to buffer/file finding, its really useful
