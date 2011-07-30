@@ -7,11 +7,11 @@
   (interactive)
   (color-theme-install
    '(color-theme-hellacious-j
-     ((background-color . "#1c1c1c")
+     ((background-color . "#090909")
       (background-mode . dark)
       (border-color . "#000000")
       (cursor-color . "#33ea1a")
-      (foreground-color . "#ffffff")
+      (foreground-color . "#eeeeee")
       (mouse-color . "black"))
      (fringe ((t (:background "#000000"))))
      (mode-line ((t (:foreground "#ffffff" :background "#542121"))))

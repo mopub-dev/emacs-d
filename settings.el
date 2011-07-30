@@ -84,7 +84,7 @@
 
 ;; Sets the default font. Wow, that string is ugly. Thanks for making it easy on me emacs!
 (if (eq system-type 'darwin)
-   (set-face-font 'default " -*-Monaco-normal-r-*-*-17-102-120-120-c-*-iso8859-1"))
+   (set-face-font 'default " -*-9x15-normal-r-*-*-17-102-120-120-c-*-iso8859-1"))
 ;    (set-face-font 'default "-apple-Monaco-medium-normal-normal-*-*-*-*-*-m-0-fontset-startup"))
 ;    (set-face-font 'default "-apple-Bitstream_Vera_Sans_Mono-medium-normal-normal-*-*-*-*-*-m-0-iso10646-1"))
 
