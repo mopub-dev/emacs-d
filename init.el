@@ -27,7 +27,7 @@
 (add-to-list 'load-path (concat plugins-dir "org/lisp"))
 (add-to-list 'load-path (concat plugins-dir "emacs-jabber/"))
 (add-to-list 'load-path (concat plugins-dir "org/contrib/lisp"))
-(load-file "~/.emacs.d/plugins/nxhtml/autostart.el")
+(add-to-list 'load-path (concat plugins-dir "scala-mode/"))
 
 (require 'cl)
 
@@ -53,13 +53,16 @@
 (require 'saveplace)
 (require 'scss-mode)
 (require 'snippet)
-(require 'uniquify)
+(require 'speedbar)
 (require 'uniquify)
 (require 'yaml-mode)
 (require 'yasnippet)
 
+
 (require 'functions) ;; personal
 
+(load-file "~/.emacs.d/plugins/nxhtml/autostart.el")
+(load "scala-mode-auto.el")
 ;;;;;;;;;;;;;;
 ;; Settings ;;
 ;;;;;;;;;;;;;;
@@ -254,10 +257,10 @@
 ;; Movement
 (windmove-default-keybindings) ;; Shift+direction keybindings
 
-;; (global-set-key "M-<left>" 'beginning-of-buffer)
-;; (global-set-key "M-<right>" 'end-of-buffer)
-;; (global-set-key "M-<up>" 'scroll-up)
-;; (global-set-key "M-<down>" 'scroll-down)
+;; (global-set-key "\M-left" 'beginning-of-buffer)
+;; (global-set-key "\M-right" 'end-of-buffer)
+;; (global-set-key "\M-up" 'scroll-up)
+;; (global-set-key "\M-down" 'scroll-down)
 
 ;; autocomplete
 (global-set-key (kbd "C-/") 'hippie-expand)
@@ -299,12 +302,12 @@
 (global-set-key [f2] 'ansi-term)
 (global-set-key [f3] (lambda () (interactive) (eshell t)))
 (global-set-key [f4] 'browse-kill-ring)
-(global-set-key [f5] '(lambda () (interactive) (find-file "~/.emacs.d/init.el")))
-(global-set-key [f5] '(lambda () (interactive) (load-file "~/.emacs.d/init.el")))
+;; (global-set-key [f5] 'something)
 (global-set-key [f6] 'kmacro-start-macro)
 (global-set-key [f7] 'kmacro-call-macro)
 (global-set-key [f8] 'kmacro-end-macro)
-
+(global-set-key [f9] '(lambda () (interactive) (find-file "~/.emacs.d/init.el")))
+(global-set-key [f10] '(lambda () (interactive) (load-file "~/.emacs.d/init.el")))
 
 ;;;;;;;;;;;;;
 ;; Aliases ;;
