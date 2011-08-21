@@ -43,6 +43,7 @@
 (require 'ido)
 (require 'inf-ruby)
 (require 'jabber)
+(require 'less-mode)
 (require 'linum)
 (require 'org-install)
 (require 'python)
@@ -83,9 +84,9 @@
 ;; color theme-ing
 (setq color-theme-is-global t)
 (color-theme-initialize)
-(color-theme-railscasts)
+(color-theme-hellacious-j)
 (highlight-current-line-on t)
-(set-face-background 'highlight-current-line-face "#333") ;; To customize the background color
+(set-face-background 'highlight-current-line-face "#333") ;; To customize the current line's background color
 
 (create-fontset-from-fontset-spec
  (concat
@@ -105,14 +106,6 @@
 ;;(set-frame-parameter (selected-frame) 'alpha '(<active> [<inactive>]))
 (set-frame-parameter (selected-frame) 'alpha '(95 50))
 (add-to-list 'default-frame-alist '(alpha 95 50))
-
-(defun toggle-transparency ()
-  (interactive)
-  (if (/=
-       (cadr (frame-parameter nil 'alpha))
-       100)
-      (set-frame-parameter nil 'alpha '(100 100))
-    (set-frame-parameter nil 'alpha '(95 50))))
 (global-set-key (kbd "C-c t") 'toggle-transparency)
 
 ;; MODE SETTINGS ;;
@@ -144,6 +137,10 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 (setq-default org-startup-indented t)
+
+(setq journal-file "~/journal.org")
+
+(global-set-key (kbd "C-c j") 'start-journal-entry)
 
 ;; dpsastes
 (global-set-key "\C-cd" 'dpaste-region)

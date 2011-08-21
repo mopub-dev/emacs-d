@@ -227,4 +227,22 @@ Symbols matching the text at point are put first in the completion list."
     (js2-highlight-vars-mode))
   (message "My JS2 hook"))
 
+(defun toggle-transparency ()
+  (interactive)
+  (if (/=
+       (cadr (frame-parameter nil 'alpha))
+       100)
+      (set-frame-parameter nil 'alpha '(100 100))
+    (set-frame-parameter nil 'alpha '(95 50))))
+
+(defun start-journal-entry ()
+  "Start a new journal entry."
+  (interactive)
+  (find-file journal-file)
+  (goto-char (point-min))
+  (org-insert-heading)
+  (org-insert-time-stamp (current-time) t)
+  (open-line 2)
+  (insert " "))
+
 (provide 'functions)
