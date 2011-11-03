@@ -1,0 +1,14 @@
+class Handler(RequestHandler):
+    def get(self):
+        return render_to_response(self.request,
+                                  "$0",
+                                  {})
+
+    def post(self):
+        pass
+
+    def put(self):
+        pass
+
+    def delete(self):
+        pass

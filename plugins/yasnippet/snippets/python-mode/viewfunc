@@ -1,0 +1,3 @@
+@login_required
+def ${1:name}(request, *args, **kwargs):
+    return $0Handler()(request, *args, **kwargs)

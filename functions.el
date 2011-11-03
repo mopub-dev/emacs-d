@@ -205,9 +205,10 @@ Symbols matching the text at point are put first in the completion list."
 
 (defun my-js2-mode-hook ()
   (require 'js)
-  (setq js-indent-level 8
+  (setq js-indent-level 4
         indent-tabs-mode nil
-        c-basic-offset 8)
+        c-basic-offset 4)
+  (setq espresso-indent-level 2)
   (c-toggle-auto-state 0)
   (c-toggle-hungry-state 1)
   (set (make-local-variable 'indent-line-function) 'my-js2-indent-function)
@@ -219,13 +220,14 @@ Symbols matching the text at point are put first in the completion list."
        (save-excursion
          (insert " ]----- */"))
        ))
-  (define-key js2-mode-map [(return)] 'newline-and-indent)
+;;  (define-key js2-mode-map [(return)] 'newline-and-indent)
   (define-key js2-mode-map [(backspace)] 'c-electric-backspace)
   (define-key js2-mode-map [(control d)] 'c-electric-delete-forward)
   (define-key js2-mode-map [(control meta q)] 'my-indent-sexp)
   (if (featurep 'js2-highlight-vars)
     (js2-highlight-vars-mode))
-  (message "My JS2 hook"))
+  (global-set-key "\C-d" 'duplicate-line)
+  (message "js2-mode hook called"))
 
 (defun toggle-transparency ()
   (interactive)

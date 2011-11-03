@@ -2,7 +2,6 @@
 ;; john.pena@gmail.com ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;;;;;;;;;;
 ;; Setup ;;
 ;;;;;;;;;;;
@@ -25,26 +24,28 @@
 (add-to-list 'load-path (concat plugins-dir "auto-complete/"))
 (add-to-list 'load-path (concat plugins-dir "color-theme/"))
 (add-to-list 'load-path (concat plugins-dir "org/lisp"))
-(add-to-list 'load-path (concat plugins-dir "emacs-jabber/"))
 (add-to-list 'load-path (concat plugins-dir "org/contrib/lisp"))
 (add-to-list 'load-path (concat plugins-dir "scala-mode/"))
 
-(require 'cl)
+(require 'cl) ;; a ton of packages need this
 
+(require 'auto-complete)
 (require 'ansi-color)
 (require 'anything)
 (require 'browse-kill-ring)
 (require 'color-theme)
+(require 'coffee-mode)
 (require 'dpaste)
 (require 'ffap)
 (require 'find-recursive)
+(require 'git)
 (require 'hexrgb)
 (require 'highlight-current-line)
 (require 'ido)
 (require 'inf-ruby)
-(require 'jabber)
 (require 'less-mode)
 (require 'linum)
+(require 'markdown-mode)
 (require 'org-install)
 (require 'python)
 (require 'rails)
@@ -59,11 +60,12 @@
 (require 'yaml-mode)
 (require 'yasnippet)
 
-
 (require 'functions) ;; personal
 
 (load-file "~/.emacs.d/plugins/nxhtml/autostart.el")
 (load "scala-mode-auto.el")
+
+
 ;;;;;;;;;;;;;;
 ;; Settings ;;
 ;;;;;;;;;;;;;;
@@ -71,10 +73,12 @@
 ;; auto-modes
 (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+(add-to-list 'auto-mode-alist '("\\.txt$" . org-mode))
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.html$" . django-html-mumamo-mode))
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-
+(add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.text$" . markdown-mode))
 
 ;; DISPLAY
 
@@ -84,23 +88,19 @@
 ;; color theme-ing
 (setq color-theme-is-global t)
 (color-theme-initialize)
-(color-theme-hellacious-j)
+(color-theme-ir-black)
 (highlight-current-line-on t)
 (set-face-background 'highlight-current-line-face "#333") ;; To customize the current line's background color
 
-(create-fontset-from-fontset-spec
- (concat
-  "-apple-monaco-medium-r-normal--12-*-*-*-*-*-fontset-monaco,"
-  "ascii:-apple-monaco-medium-r-normal--12-100-*-*-m-100-mac-roman,"
-  "latin-iso8859-1:-apple-monaco-medium-r-normal--12-100-*-*-m-100-mac-roman"))
+;; (if (eq system-type 'darwin)
+;;     (set-face-font 'default "-apple-Monaco-medium-normal-normal-*-*-*-*-*-m-0-fontset-startup"))
 
-(setq default-frame-alist '((font . "fontset-monaco")))
+;; ;; Set the size of the font. Height is 10x normal font size. So, 12pt = 120.
+;; (set-face-attribute 'default nil :height 100)
 
-;;(if (eq system-type 'darwin)
-   ;;  (set-face-font 'default "-apple-Monaco-medium-normal-normal-*-*-*-*-*-m-0-fontset-startup"))
+;;(set-face-font 'default "-apple-menlo-medium-r-normal--11-110-72-72-m-110-iso10646-1")
 
-;; Set the size of the font. Height is 10x normal font size. So, 12pt = 120.
-(set-face-attribute 'default nil :height 100)
+(set-face-font 'default "-outline-Bitstream Vera Sans Mono-normal-r-normal-normal-10-90-96-96-c-*-iso8859-1")
 
 ;; window transparency
 ;;(set-frame-parameter (selected-frame) 'alpha '(<active> [<inactive>]))
@@ -110,24 +110,47 @@
 
 ;; MODE SETTINGS ;;
 
+;; ansi-term
+(setq ansi-color-for-comint-mode t) ;; fixes missing character issues
+
 ;; js2-mode settings
 (autoload 'js2-mode "js2" nil t)
 (add-hook 'js2-mode-hook 'my-js2-mode-hook)
-(setq js2-basic-offset 2)
+(setq js2-basic-offset 1)
 (setq js2-use-font-lock-faces t)
 
 ;; nXHTML (has django stuff)
 (setq mumamo-background-colors nil)
 
 ;; Highlight selection
-    (transient-mark-mode t)
+(transient-mark-mode t)
 
+;; Line numbers everywhere
+(global-linum-mode 1)
 
 ;; ido.el support.
 ;; ido adds some functionality to buffer/file finding, its really useful
 (ido-mode t)
 (setq ido-enable-flex-matching t) ;; enable fuzzy matching
 (setq ido-create-new-buffer 'always) ;; make new buffers on the fly, dont ask to confirm
+
+;; autocompletion
+(global-auto-complete-mode t)
+(setq ac-auto-start t)                  ;automatically start
+(setq ac-dwim t)                        ;Do what i mean
+(setq ac-override-local-map nil)        ;don't override local map
+(setq ac-modes
+      '(emacs-lisp-mode lisp-interaction-mode lisp-mode scheme-mode
+                        c-mode cc-mode c++-mode java-mode
+                        perl-mode cperl-mode python-mode ruby-mode
+                        ecmascript-mode javascript-mode php-mode css-mode
+                        makefile-mode sh-mode fortran-mode f90-mode ada-mode
+                        xml-mode sgml-mode
+                        haskell-mode literate-haskell-mode
+                        emms-tag-editor-mode
+                        asm-mode
+                        org-mode))
+
 
 ;; uniquify renames buffers to be unique, so no more index.html | index.html<2>
 (setq uniquify-buffer-name-style 'forward)
@@ -138,6 +161,9 @@
 (global-set-key "\C-cb" 'org-iswitchb)
 (setq-default org-startup-indented t)
 
+(setq-default indent-tabs-mode nil) ; always replace tabs with spaces
+(setq-default tab-width 4) ; set tab width to 4 for all buffers
+
 (setq journal-file "~/journal.org")
 
 (global-set-key (kbd "C-c j") 'start-journal-entry)
@@ -146,10 +172,10 @@
 (global-set-key "\C-cd" 'dpaste-region)
 
 ;; jabber
-(setq jabber-account-list
-      '(("john.pena@gmail.com"
-         (:network-server . "talk.google.com")
-         (:connection-type . ssl))))
+;; (setq jabber-account-list
+;;       '(("john.pena@gmail.com"
+;;          (:network-server . "talk.google.com")
+;;          (:connection-type . ssl))))
 
 ;; Turn off backup files (those fucking annoying foo~ files)
 (setq make-backup-files nil)
@@ -246,13 +272,26 @@
 ;; Remap some keys to their OSX equivalent
 (global-set-key "\M-z" 'undo)
 
+;; vim-like movement
+(global-set-key "\M-h" 'backward-char)
+(global-set-key "\M-j" 'previous-line)
+(global-set-key "\M-k" 'next-line)
+(global-set-key "\M-l" 'forward-char)
+
 ;; Map meta to c-x c-m and c-c c-m
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 (global-set-key "\C-c\C-m" 'execute-extended-command)
 
+;; Resetting killers
+(global-set-key "\C-x\C-k" 'kill-region)
+(global-set-key "\C-c\C-k" 'kill-region)
 
 ;; Movement
 (windmove-default-keybindings) ;; Shift+direction keybindings
+(global-set-key "\C-f" 'forward-word)
+(global-set-key "\C-b" 'backward-word)
+(global-set-key "\M-f" 'forward-char)
+(global-set-key "\M-b" 'backward-char)
 
 ;; (global-set-key "\M-left" 'beginning-of-buffer)
 ;; (global-set-key "\M-right" 'end-of-buffer)
@@ -284,32 +323,42 @@
 ;; override C-p with string replacing
 (global-set-key "\C-p" 'replace-string)
 
-(global-set-key (kbd "C-x g") 'magit-status)
-
 ;; Use regex searches by default.
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
 (global-set-key (kbd "\C-r") 'isearch-backward-regexp)
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 
-(global-set-key (kbd "C-c C-s") 'multi-occur-in-this-mode)
+;; Reverts a buffer from what's on disk. Nice for switching branches.
+(global-set-key [(super r)] #'(lambda () (interactive) (revert-buffer t t nil)))
 
 ;; F1 - F12
 (global-set-key [f1] 'ns-toggle-fullscreen)
 (global-set-key [f2] 'ansi-term)
 (global-set-key [f3] (lambda () (interactive) (eshell t)))
 (global-set-key [f4] 'browse-kill-ring)
-;; (global-set-key [f5] 'something)
-(global-set-key [f6] 'kmacro-start-macro)
-(global-set-key [f7] 'kmacro-call-macro)
-(global-set-key [f8] 'kmacro-end-macro)
-(global-set-key [f9] '(lambda () (interactive) (find-file "~/.emacs.d/init.el")))
-(global-set-key [f10] '(lambda () (interactive) (load-file "~/.emacs.d/init.el")))
+;; (global-set-key [f5] 'this is set earlier)
+(global-set-key [f7] 'kmacro-start-macro)
+(global-set-key [f8] 'kmacro-call-macro)
+(global-set-key [f9] 'kmacro-end-macro)
+(global-set-key [f10] '(lambda () (interactive) (find-file "~/.emacs.d/init.el")))
+(global-set-key [f11] '(lambda () (interactive) (load-file "~/.emacs.d/init.el")))
+
+
+(global-set-key "%" 'match-paren)
+
+(defun match-paren (arg)
+  "Go to the matching paren if on a paren; otherwise insert %."
+  (interactive "p")
+  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+        ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+        (t (self-insert-command (or arg 1)))))
 
 ;;;;;;;;;;;;;
 ;; Aliases ;;
 ;;;;;;;;;;;;;
 
+; modes
 (defalias 'pym 'python-mode)
 (defalias 'jsm 'js-mode)
 (defalias 'rbm 'ruby-mode)
@@ -322,19 +371,18 @@
 (defalias 'gwsm 'global-whitespace-mode)
 (defalias 'om 'org-mode)
 
+; commands
+(defalias 'cr 'comment-region)
+(defalias 'ucr 'uncomment-region)
 
 ;; thats all!
 ;; init.el ends here
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(scheme-program-name "mzscheme"))
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(js2-basic-offset 4)
+ '(scheme-program-name "mzscheme")
+ '(standard-indent 4)
+'(warning-minimum-level :error))
