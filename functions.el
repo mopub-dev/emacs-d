@@ -222,7 +222,7 @@ Symbols matching the text at point are put first in the completion list."
   (define-key js2-mode-map [(control meta q)] 'my-indent-sexp)
   (if (featurep 'js2-highlight-vars)
     (js2-highlight-vars-mode))
-  (global-set-key "\C-d" 'duplicate-line)
+  (local-set-key "\C-d" 'duplicate-line)
   (message "js2-mode hook called"))
 
 
