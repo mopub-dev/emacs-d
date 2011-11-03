@@ -75,11 +75,6 @@ Symbols matching the text at point are put first in the completion list."
           "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in "
           "culpa qui officia deserunt mollit anim id est laborum."))
 
-
-(defun python-debug ()
-  (interactive)
-  (insert "from IPython.Shell import IPShellEmbed; IPShellEmbed()()"))
-
 (defun lorizzle ()
   (interactive)
   (insert "Lorizzle ipsum dolizzle get down get down get down get"
@@ -147,6 +142,7 @@ Symbols matching the text at point are put first in the completion list."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Indentation fixes for js2-mode ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun my-js2-indent-function ()
   (interactive)
@@ -228,6 +224,27 @@ Symbols matching the text at point are put first in the completion list."
     (js2-highlight-vars-mode))
   (global-set-key "\C-d" 'duplicate-line)
   (message "js2-mode hook called"))
+
+
+;; Python
+(defun python-debug ()
+  (interactive)
+  (insert "from IPython.Shell import IPShellEmbed; IPShellEmbed()()"))
+
+(defun my-python-compile ()
+  "Use compile to run python programs"
+  (interactive)
+  (compile (concat "python " (buffer-name))))
+
+(setq compilation-scroll-output t)
+
+(defun my-python-mode-hook ()
+  (require 'python)
+;;  (setq
+  (local-set-key "\C-c\C-c" 'my-python-compile))
+
+
+;; Etc
 
 (defun toggle-transparency ()
   (interactive)

@@ -171,12 +171,6 @@
 ;; dpsastes
 (global-set-key "\C-cd" 'dpaste-region)
 
-;; jabber
-;; (setq jabber-account-list
-;;       '(("john.pena@gmail.com"
-;;          (:network-server . "talk.google.com")
-;;          (:connection-type . ssl))))
-
 ;; Turn off backup files (those fucking annoying foo~ files)
 (setq make-backup-files nil)
 
@@ -274,8 +268,8 @@
 
 ;; vim-like movement
 (global-set-key "\M-h" 'backward-char)
-(global-set-key "\M-j" 'previous-line)
-(global-set-key "\M-k" 'next-line)
+(global-set-key "\M-j" 'next-line)
+(global-set-key "\M-k" 'previous-line)
 (global-set-key "\M-l" 'forward-char)
 
 ;; Map meta to c-x c-m and c-c c-m
@@ -293,10 +287,10 @@
 (global-set-key "\M-f" 'forward-char)
 (global-set-key "\M-b" 'backward-char)
 
-;; (global-set-key "\M-left" 'beginning-of-buffer)
-;; (global-set-key "\M-right" 'end-of-buffer)
-;; (global-set-key "\M-up" 'scroll-up)
-;; (global-set-key "\M-down" 'scroll-down)
+(global-set-key (kbd "M-<left>") 'beginning-of-buffer)
+(global-set-key (kbd "M-<right>") 'end-of-buffer)
+(global-set-key (kbd "M-<up>") 'scroll-down)
+(global-set-key (kbd "M-<down>") 'scroll-up)
 
 ;; autocomplete
 (global-set-key (kbd "C-/") 'hippie-expand)
