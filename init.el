@@ -2,6 +2,24 @@
 ;; john.pena@gmail.com ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
+;; TABLE OF CONTENTS ;;
+
+;; 1. Setup
+;;    a. Sets up the directory structure
+;;    b. Loads all of the plugins
+;;       (If you want to add more plugins, add the.el file to .emacs.d/plugins)
+;;       (You should be able to just require `the-plugin and it'll load.
+;;    c. Bootstraps some other stuff in functions.el
+;; 2. General settings
+;;    a. mode startup for different file extensions
+;;    b. some display stuff
+;;    c. mode-specific settings and hooks
+;;    d. emacs settings
+;; 3. Key Bindings
+;; 4. Aliases
+
+
 ;;;;;;;;;;;
 ;; Setup ;;
 ;;;;;;;;;;;
@@ -20,6 +38,7 @@
 
 ;; Load plugins ;;
 (add-to-list 'load-path (concat plugins-dir "yasnippet/"))
+(add-to-list 'load-path (concat plugins-dir "pymacs/"))
 (add-to-list 'load-path (concat plugins-dir "rails/"))
 (add-to-list 'load-path (concat plugins-dir "auto-complete/"))
 (add-to-list 'load-path (concat plugins-dir "color-theme/"))
@@ -29,6 +48,7 @@
 
 (require 'cl) ;; a ton of packages need this
 
+(require 'ace-jump-mode)
 (require 'auto-complete)
 (require 'ansi-color)
 (require 'anything)
@@ -66,11 +86,12 @@
 (load "scala-mode-auto.el")
 
 
-;;;;;;;;;;;;;;
-;; Settings ;;
-;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;
+;; General Settings ;;
+;;;;;;;;;;;;;;;;;;;;;;
 
-;; auto-modes
+;; MAJOR MODE LOADING ;;
+
 (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 (add-to-list 'auto-mode-alist '("\\.txt$" . org-mode))
@@ -80,7 +101,8 @@
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.text$" . markdown-mode))
 
-;; DISPLAY
+
+;; DISPLAY SETTINGS ;;
 
 ;; syntax highlight everywhere
 (global-font-lock-mode t)
@@ -88,7 +110,7 @@
 ;; color theme-ing
 (setq color-theme-is-global t)
 (color-theme-initialize)
-(color-theme-ir-black)
+(color-theme-holy-fuck)
 (highlight-current-line-on t)
 (set-face-background 'highlight-current-line-face "#333") ;; To customize the current line's background color
 
@@ -96,17 +118,18 @@
 ;;     (set-face-font 'default "-apple-Monaco-medium-normal-normal-*-*-*-*-*-m-0-fontset-startup"))
 
 ;; ;; Set the size of the font. Height is 10x normal font size. So, 12pt = 120.
-;; (set-face-attribute 'default nil :height 100)
+;; (set-face-attribute 'default nil :height 110)
 
 ;;(set-face-font 'default "-apple-menlo-medium-r-normal--11-110-72-72-m-110-iso10646-1")
 
-(set-face-font 'default "-outline-Bitstream Vera Sans Mono-normal-r-normal-normal-10-90-96-96-c-*-iso8859-1")
+(set-face-font 'default "-outline-Bitstream Vera Sans Mono-normal-r-normal-normal-11-90-96-96-c-*-iso8859-1")
 
 ;; window transparency
 ;;(set-frame-parameter (selected-frame) 'alpha '(<active> [<inactive>]))
 (set-frame-parameter (selected-frame) 'alpha '(95 50))
 (add-to-list 'default-frame-alist '(alpha 95 50))
 (global-set-key (kbd "C-c t") 'toggle-transparency)
+
 
 ;; MODE SETTINGS ;;
 
@@ -119,14 +142,53 @@
 (setq js2-basic-offset 1)
 (setq js2-use-font-lock-faces t)
 
+;; python
+(add-hook 'python-mode-hook 'my-python-mode-hook)
+
 ;; nXHTML (has django stuff)
 (setq mumamo-background-colors nil)
+
+;; Org-mode
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+(setq-default org-startup-indented t)
+
+(setq journal-file "~/journal.org")
+
+(global-set-key (kbd "C-c j") 'start-journal-entry)
+
+;; dpsastes
+(global-set-key "\C-cd" 'dpaste-region)
+
+;; erc
+(erc-timestamp-mode t)
+(erc-match-mode t) ;; Notify me if someone calls me
+(setq erc-server "irc.freenode.net"
+      erc-port 6667
+      erc-nick "streblo"
+      erc-user-full-name "Wub Womper"
+      erc-email-userid "streblo"
+      erc-prompt-for-password t
+      erc-fill-prefix "      "
+      erc-auto-query t
+      erc-keywords '("streblo" "geckimo", "409advisor", "409", "409A")
+      erc-timestamp-only-if-changed-flag nil
+      erc-timestamp-format "%H:%M "
+      erc-insert-timestamp-function 'erc-insert-timestamp-left
+      erc-log-channels t
+      erc-log-channels-directory "~/.irclogs"
+      erc-log-insert-log-on-open t
+      )
+
+
+;; EMACS SETTINGS ;;
 
 ;; Highlight selection
 (transient-mark-mode t)
 
 ;; Line numbers everywhere
-(global-linum-mode 1)
+;; (global-linum-mode 1)
 
 ;; ido.el support.
 ;; ido adds some functionality to buffer/file finding, its really useful
@@ -155,21 +217,9 @@
 ;; uniquify renames buffers to be unique, so no more index.html | index.html<2>
 (setq uniquify-buffer-name-style 'forward)
 
-;; Org-mode
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cb" 'org-iswitchb)
-(setq-default org-startup-indented t)
 
 (setq-default indent-tabs-mode nil) ; always replace tabs with spaces
 (setq-default tab-width 4) ; set tab width to 4 for all buffers
-
-(setq journal-file "~/journal.org")
-
-(global-set-key (kbd "C-c j") 'start-journal-entry)
-
-;; dpsastes
-(global-set-key "\C-cd" 'dpaste-region)
 
 ;; Turn off backup files (those fucking annoying foo~ files)
 (setq make-backup-files nil)
@@ -182,7 +232,7 @@
 (setq inhibit-startup-message t)
 
 ;; Display the time in the minibuffer
-(display-time)
+;; (display-time)
 
 ;; yasnippet (textmate-like snippets)
 (yas/initialize)
@@ -238,30 +288,13 @@
     (setq exec-path (split-string path-from-shell path-separator))))
 (when (equal system-type 'darwin) (set-exec-path-from-shell-PATH))
 
-;; erc
-(erc-timestamp-mode t)
-(erc-match-mode t) ;; Notify me if someone calls me
-(setq erc-server "irc.freenode.net"
-      erc-port 6667
-      erc-nick "streblo"
-      erc-user-full-name "Wub Womper"
-      erc-email-userid "streblo"
-      erc-prompt-for-password t
-      erc-fill-prefix "      "
-      erc-auto-query t
-      erc-keywords '("streblo" "geckimo", "409advisor", "409", "409A")
-      erc-timestamp-only-if-changed-flag nil
-      erc-timestamp-format "%H:%M "
-      erc-insert-timestamp-function 'erc-insert-timestamp-left
-      erc-log-channels t
-      erc-log-channels-directory "~/.irclogs"
-      erc-log-insert-log-on-open t
-      )
-
 
 ;;;;;;;;;;;;;;;;;;
 ;; Key Bindings ;;
 ;;;;;;;;;;;;;;;;;;
+
+;; ace jump
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 
 ;; Remap some keys to their OSX equivalent
 (global-set-key "\M-z" 'undo)
@@ -339,14 +372,16 @@
 (global-set-key [f11] '(lambda () (interactive) (load-file "~/.emacs.d/init.el")))
 
 
-(global-set-key "%" 'match-paren)
+;; Parens matching. I should bind this key to something else since % is used in nxhtml-django-mode
 
-(defun match-paren (arg)
-  "Go to the matching paren if on a paren; otherwise insert %."
-  (interactive "p")
-  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
-        ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
-        (t (self-insert-command (or arg 1)))))
+;;(global-set-key "%" 'match-paren)
+
+;; (defun match-paren (arg)
+;;   "Go to the matching paren if on a paren; otherwise insert %."
+;;   (interactive "p")
+;;   (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+;;         ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+;;         (t (self-insert-command (or arg 1)))))
 
 ;;;;;;;;;;;;;
 ;; Aliases ;;
@@ -371,6 +406,7 @@
 
 ;; thats all!
 ;; init.el ends here
+
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
