@@ -74,6 +74,7 @@
 (require 'ruby-mode)
 (require 'saveplace)
 (require 'scss-mode)
+(require 'smex)
 (require 'snippet)
 (require 'speedbar)
 (require 'uniquify)
@@ -132,6 +133,9 @@
 
 
 ;; MODE SETTINGS ;;
+
+;; initialize smex (like ido but for M-x commands)
+(smex-initialize)
 
 ;; ansi-term
 (setq ansi-color-for-comint-mode t) ;; fixes missing character issues
@@ -305,9 +309,9 @@
 (global-set-key "\M-k" 'previous-line)
 (global-set-key "\M-l" 'forward-char)
 
-;; Map meta to c-x c-m and c-c c-m
-(global-set-key "\C-x\C-m" 'execute-extended-command)
-(global-set-key "\C-c\C-m" 'execute-extended-command)
+;; Map smex meta to c-x c-m and c-c c-m
+(global-set-key "\C-x\C-m" 'smex)
+(global-set-key "\C-c\C-m" 'smex-major-mode-commands)
 
 ;; Resetting killers
 (global-set-key "\C-x\C-k" 'kill-region)
