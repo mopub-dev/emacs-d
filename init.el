@@ -55,6 +55,8 @@
 (require 'browse-kill-ring)
 (require 'color-theme)
 (require 'coffee-mode)
+;; (require 'django-mode)
+;; (require 'django-html-mode)
 (require 'dpaste)
 (require 'ffap)
 (require 'find-recursive)
