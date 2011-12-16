@@ -37,8 +37,6 @@
 (add-to-list 'load-path plugins-dir)
 
 ;; Load plugins ;;
-(add-to-list 'load-path (concat plugins-dir "yasnippet/"))
-(add-to-list 'load-path (concat plugins-dir "pymacs/"))
 (add-to-list 'load-path (concat plugins-dir "rails/"))
 (add-to-list 'load-path (concat plugins-dir "auto-complete/"))
 (add-to-list 'load-path (concat plugins-dir "color-theme/"))
@@ -78,9 +76,10 @@
 (require 'smex)
 (require 'snippet)
 (require 'speedbar)
+(require 'textmate)
 (require 'uniquify)
+(require 'workgroups)
 (require 'yaml-mode)
-(require 'yasnippet)
 
 (require 'functions) ;; personal
 
@@ -239,11 +238,6 @@
 ;; Display the time in the minibuffer
 ;; (display-time)
 
-;; yasnippet (textmate-like snippets)
-(yas/initialize)
-(yas/load-directory (concat plugins-dir "yasnippet/snippets/"))
-(setq yas/prompt-functions '(yas/ido-prompt yas/dropdown-prompt))
-
 ;; Line and column numbers in the bar above the minibuffer
 (line-number-mode 1)
 (column-number-mode 1)
@@ -298,11 +292,12 @@
 ;; Key Bindings ;;
 ;;;;;;;;;;;;;;;;;;
 
-;; ace jump
-(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
-
 ;; Remap some keys to their OSX equivalent
 (global-set-key "\M-z" 'undo)
+
+;; ace jump
+(global-set-key (kbd "C-c SPC") 'ace-jump-mode)
+(global-set-key (kbd "C-c C-a") 'ace-jump-mode)
 
 ;; vim-like movement
 (global-set-key "\M-h" 'backward-char)
@@ -351,6 +346,7 @@
 
 ;; Killring browser
 (global-set-key (kbd "C-c k") 'browse-kill-ring)
+(global-set-key (kbd "C-x C-y") 'browse-kill-ring)
 
 ;; override C-p with string replacing
 (global-set-key "\C-p" 'replace-string)
@@ -361,8 +357,10 @@
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 
-;; Reverts a buffer from what's on disk. Nice for switching branches.
-(global-set-key [(super r)] #'(lambda () (interactive) (revert-buffer t t nil)))
+;; Mimic textmate features (from textmate.el)
+(global-set-key (kbd "M-t") 'textmate-goto-file)
+(global-set-key (kbd "M-S-t") 'textmate-goto-file)
+
 
 ;; F1 - F12
 (global-set-key [f1] 'ns-toggle-fullscreen)
@@ -377,16 +375,15 @@
 (global-set-key [f11] '(lambda () (interactive) (load-file "~/.emacs.d/init.el")))
 
 
-;; Parens matching. I should bind this key to something else since % is used in nxhtml-django-mode
+;; Parens matching.
+(global-set-key "C-c m" 'match-paren)
 
-;;(global-set-key "%" 'match-paren)
-
-;; (defun match-paren (arg)
-;;   "Go to the matching paren if on a paren; otherwise insert %."
-;;   (interactive "p")
-;;   (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
-;;         ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
-;;         (t (self-insert-command (or arg 1)))))
+(defun match-paren (arg)
+  "Go to the matching paren if on a paren; otherwise insert %."
+  (interactive "p")
+  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+        ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+        (t (self-insert-command (or arg 1)))))
 
 ;;;;;;;;;;;;;
 ;; Aliases ;;
@@ -413,11 +410,18 @@
 ;; init.el ends here
 
 (custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(js2-basic-offset 4)
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(js2-basic-offset 4 t)
  '(scheme-program-name "mzscheme")
+ '(send-mail-function (quote mailclient-send-it))
  '(standard-indent 4)
-'(warning-minimum-level :error))
+ '(warning-minimum-level :error))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
