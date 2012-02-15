@@ -54,6 +54,7 @@
 (require 'color-theme)
 (require 'coffee-mode)
 (require 'dpaste)
+(require 'expand-region)
 (require 'ffap)
 (require 'find-recursive)
 (require 'git)
@@ -64,10 +65,12 @@
 (require 'less-mode)
 (require 'linum)
 (require 'markdown-mode)
+(require 'midnight)
 ;; (require 'mustache-mode)
 (require 'org-install)
 (require 'python)
 (require 'rails)
+(require 'rainbow-mode)
 (require 'recentf)
 (require 'ruby-electric)
 (require 'ruby-mode)
@@ -93,6 +96,11 @@
 
 ;; MAJOR MODE LOADING ;;
 
+;; CSS and Rainbow modes
+(defun all-scss-modes() (scss-mode) (rainbow-mode))
+
+;; Load both major and minor modes in one call based on file type
+(add-to-list 'auto-mode-alist '("\\.scss$" . all-scss-modes))
 (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 (add-to-list 'auto-mode-alist '("\\.txt$" . org-mode))
@@ -111,9 +119,9 @@
 ;; color theme-ing
 (setq color-theme-is-global t)
 (color-theme-initialize)
-(color-theme-holy-fuck)
+(color-theme-ir-black)
 (highlight-current-line-on t)
-(set-face-background 'highlight-current-line-face "#333") ;; To customize the current line's background color
+(set-face-background 'highlight-current-line-face "#000") ;; To customize the current line's background color
 
 ;; (if (eq system-type 'darwin)
 ;;     (set-face-font 'default "-apple-Monaco-medium-normal-normal-*-*-*-*-*-m-0-fontset-startup"))
@@ -188,6 +196,8 @@
 
 ;; EMACS SETTINGS ;;
 
+(setq midnight-mode 't)
+
 ;; Highlight selection
 (transient-mark-mode t)
 
@@ -205,14 +215,32 @@
 (setq ac-auto-start t)                  ;automatically start
 (setq ac-dwim t)                        ;Do what i mean
 (setq ac-override-local-map nil)        ;don't override local map
+; autocomplete in the following modes:
 (setq ac-modes
-      '(emacs-lisp-mode lisp-interaction-mode lisp-mode scheme-mode
-                        c-mode cc-mode c++-mode java-mode
-                        perl-mode cperl-mode python-mode ruby-mode
-                        ecmascript-mode javascript-mode php-mode css-mode
-                        makefile-mode sh-mode fortran-mode f90-mode ada-mode
-                        xml-mode sgml-mode
-                        haskell-mode literate-haskell-mode
+      '(emacs-lisp-mode lisp-interaction-mode
+                        lisp-mode scheme-mode
+                        c-mode
+                        cc-mode
+                        c++-mode
+                        java-mode
+                        perl-mode
+                        cperl-mode
+                        python-mode
+                        ruby-mode
+                        ecmascript-mode
+                        javascript-mode
+                        js2-mode
+                        php-mode
+                        css-mode
+                        makefile-mode
+                        sh-mode
+                        fortran-mode
+                        f90-mode
+                        ada-mode
+                        xml-mode
+                        sgml-mode
+                        haskell-mode
+                        literate-haskell-mode
                         emms-tag-editor-mode
                         asm-mode
                         org-mode))
@@ -341,6 +369,9 @@
 ;; goto line... this comment is unnecessary
 (global-set-key "\C-c\C-l" 'goto-line)
 
+;; Expand-region
+(global-set-key (kbd "C-@") 'er/expand-region)
+
 ;; Anything! I love this thing.
 (global-set-key (quote [(meta return)]) 'anything)
 
@@ -374,16 +405,27 @@
 (global-set-key [f10] '(lambda () (interactive) (find-file "~/.emacs.d/init.el")))
 (global-set-key [f11] '(lambda () (interactive) (load-file "~/.emacs.d/init.el")))
 
-
-;; Parens matching.
-(global-set-key "C-c m" 'match-paren)
-
 (defun match-paren (arg)
   "Go to the matching paren if on a paren; otherwise insert %."
   (interactive "p")
   (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
         ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
         (t (self-insert-command (or arg 1)))))
+
+;; Parens matching.
+(global-set-key "C-c m" 'match-paren)
+
+;; Mumamo is making emacs 23.3 freak out:
+(when (and (equal emacs-major-version 23)
+           (equal emacs-minor-version 3))
+  (eval-after-load "bytecomp"
+    '(add-to-list 'byte-compile-not-obsolete-vars
+                  'font-lock-beginning-of-syntax-function))
+  ;; tramp-compat.el clobbers this variable!
+  (eval-after-load "tramp-compat"
+    '(add-to-list 'byte-compile-not-obsolete-vars
+                  'font-lock-beginning-of-syntax-function)))
+
 
 ;;;;;;;;;;;;;
 ;; Aliases ;;
