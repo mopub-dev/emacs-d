@@ -44,6 +44,17 @@
 (add-to-list 'load-path (concat plugins-dir "org/contrib/lisp"))
 (add-to-list 'load-path (concat plugins-dir "scala-mode/"))
 
+(when (and (equal emacs-major-version 23)
+           (equal emacs-minor-version 3))
+  (eval-after-load "bytecomp"
+    '(add-to-list 'byte-compile-not-obsolete-vars
+                  'font-lock-beginning-of-syntax-function))
+  ;; tramp-compat.el clobbers this variable!
+  (eval-after-load "tramp-compat"
+    '(add-to-list 'byte-compile-not-obsolete-vars
+                  'font-lock-beginning-of-syntax-function)))
+
+
 (require 'cl) ;; a ton of packages need this
 
 (require 'ace-jump-mode)
@@ -97,7 +108,9 @@
 ;; MAJOR MODE LOADING ;;
 
 ;; CSS and Rainbow modes
-(defun all-scss-modes() (scss-mode) (rainbow-mode))
+(defun all-scss-modes()
+  (scss-mode)
+  (rainbow-mode))
 
 ;; Load both major and minor modes in one call based on file type
 (add-to-list 'auto-mode-alist '("\\.scss$" . all-scss-modes))
@@ -119,7 +132,7 @@
 ;; color theme-ing
 (setq color-theme-is-global t)
 (color-theme-initialize)
-(color-theme-ir-black)
+(color-theme-jcp-tres)
 (highlight-current-line-on t)
 (set-face-background 'highlight-current-line-face "#000") ;; To customize the current line's background color
 
@@ -456,6 +469,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+
  '(js2-basic-offset 4 t)
  '(scheme-program-name "mzscheme")
  '(send-mail-function (quote mailclient-send-it))
