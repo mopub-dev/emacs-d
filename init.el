@@ -55,8 +55,9 @@
                   'font-lock-beginning-of-syntax-function)))
 
 
-(require 'cl) ;; a ton of packages need this
+;; Load third party plugins
 
+(require 'cl) ;; a ton of packages need this so i put it first
 (require 'ace-jump-mode)
 (require 'auto-complete)
 (require 'ansi-color)
@@ -77,7 +78,6 @@
 (require 'linum)
 (require 'markdown-mode)
 (require 'midnight)
-;; (require 'mustache-mode)
 (require 'org-install)
 (require 'python)
 (require 'rails)
@@ -95,11 +95,19 @@
 (require 'workgroups)
 (require 'yaml-mode)
 
-(require 'functions) ;; personal
+ ;; personal
+(require 'functions)
 
+
+;; Scala mode
 (load-file "~/.emacs.d/plugins/nxhtml/autostart.el")
 (load "scala-mode-auto.el")
 
+;; SLIME
+(setq inferior-lisp-program "/usr/local/bin/sbcl")
+(add-to-list 'load-path (concat plugins-dir "slime"))
+(require 'slime)
+(slime-setup)
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; General Settings ;;
@@ -132,7 +140,9 @@
 ;; color theme-ing
 (setq color-theme-is-global t)
 (color-theme-initialize)
-(color-theme-jcp-tres)
+(if window-system
+    (color-theme-jcp-tres) ;; ns
+    (color-theme-ir-black)) ;; term
 (highlight-current-line-on t)
 (set-face-background 'highlight-current-line-face "#000") ;; To customize the current line's background color
 
@@ -148,9 +158,9 @@
 
 ;; window transparency
 ;;(set-frame-parameter (selected-frame) 'alpha '(<active> [<inactive>]))
-(set-frame-parameter (selected-frame) 'alpha '(95 50))
-(add-to-list 'default-frame-alist '(alpha 95 50))
-(global-set-key (kbd "C-c t") 'toggle-transparency)
+;;(set-frame-parameter (selected-frame) 'alpha '(95 50))
+;;(add-to-list 'default-frame-alist '(alpha 95 50))
+;;(global-set-key (kbd "C-c t") 'toggle-transparency)
 
 
 ;; MODE SETTINGS ;;
@@ -167,8 +177,28 @@
 (setq js2-basic-offset 1)
 (setq js2-use-font-lock-faces t)
 
-;; python
-(add-hook 'python-mode-hook 'my-python-mode-hook)
+;;;;;;;;;;;;
+;; python ;;
+;;;;;;;;;;;;
+
+(load-library "flymake-cursor")
+
+(when (load "flymake" t)
+  (defun flymake-pyflakes-init ()
+    (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                       'flymake-create-temp-inplace))
+           (local-file (file-relative-name
+                        temp-file
+                        (file-name-directory buffer-file-name))))
+      (list "pyflakes" (list local-file))))
+
+  (add-to-list 'flymake-allowed-file-name-masks
+               '("\\.py\\'" flymake-pyflakes-init)))
+
+
+(add-hook 'find-file-hook 'flymake-find-file-hook)
+(add-hook 'python-mode-hook 'show-fly-err-at-point)
+
 
 ;; nXHTML (has django stuff)
 (setq mumamo-background-colors nil)
@@ -300,15 +330,12 @@
 
 ;; Instead of tooltips opening in another fucking frame (incredibly annoying and disruptive),
 ;; display them in the echo area. Why this is not default, I don't understand.
+(require 'tooltip)
 (tooltip-mode -1)
 (setq tooltip-use-echo-area t)
 
 ;; set the default frame size
 (setq initial-frame-alist '((width . 170) (height . 48)))
-
-;; stop emacs from dividing the frame to display tooltips
-(tooltip-mode -1)
-(setq tooltip-use-echo-area t)
 
 ;; Set up tags
 (setq tags-file-name "~/TAGS")
@@ -348,6 +375,7 @@
 
 ;; Map smex meta to c-x c-m and c-c c-m
 (global-set-key "\C-x\C-m" 'smex)
+(global-set-key "\C-x\C-n" 'smex)
 (global-set-key "\C-c\C-m" 'smex-major-mode-commands)
 
 ;; Resetting killers

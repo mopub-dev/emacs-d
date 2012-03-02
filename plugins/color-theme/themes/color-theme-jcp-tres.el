@@ -34,5 +34,7 @@
      (isearch-lazy-highlight-face ((t (:foreground "#2e3436" :background "#e9b96e"))))
      (show-paren-match-face ((t (:foreground "#2e3436" :background "#73d216"))))
      (show-paren-mismatch-face ((t (:background "#ad7fa8" :foreground "#2e3436"))))
+     (flymake-errline ((((class color)) (:background "LightPink" :foreground "black"))))
+     (flymake-warnline ((((class color)) (:background "LightBlue2" :foreground "black"))))
      )))
 (provide 'color-theme-jcp-tres)
