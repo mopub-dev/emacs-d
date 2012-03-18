@@ -3,3 +3,8 @@
 *~
 *.dat
 abbrev_defs
+saveplace
+savehist
+recenf
+recentf
+url
