@@ -4,7 +4,7 @@
 (require 'helm-config)
 (require 'ido)
 (require 'package)
-(require 'smex)
+(require 'markdown-mode)
 
 (message "Loading jcp core module")
 
@@ -34,7 +34,7 @@
     (set-exec-path-from-shell-PATH)
     (push "/usr/local/bin" exec-path)))
 
-(when (equal emacs-major-version 24)         
+(when (equal emacs-major-version 24)
   (eval-after-load "bytecomp"
     '(add-to-list
       'byte-compile-not-obsolete-vars
@@ -74,6 +74,9 @@
 ;; DISPLAY ;;
 ;;;;;;;;;;;;;
 
+;; Set the default major mode to markdown
+(setq initial-major-mode 'markdown-mode)
+
 ;; syntax highlight everywhere
 (global-font-lock-mode t)
 
@@ -82,11 +85,9 @@
 (color-theme-initialize)
 (if window-system
     (color-theme-jcp-tres) ;; ns
-    (color-theme-ir-black)) ;; term
+  (color-theme-ir-black)) ;; term
 
-;; (highlight-current-line-on t)
-
-(set-face-font 'default "-outline-Bitstream Vera Sans Mono-normal-r-normal-normal-11-90-96-96-c-*-iso8859-1")
+;;(set-face-font 'default "-outline-Bitstream Vera Sans Mono-normal-r-normal-normal-11-90-96-96-c-*-iso8859-1")
 
 ;; window transparency
 
@@ -128,8 +129,8 @@
         (helm-quit-if-no-candidate
          (lambda () (message "No history record."))))
     (helm '(helm-c-source-dired-history)
-              ;; Initialize input with current symbol
-              ""  nil nil)))
+          ;; Initialize input with current symbol
+          ""  nil nil)))
 
 ;;;;;;;;;
 ;; ERC ;;
@@ -152,8 +153,7 @@
       erc-insert-timestamp-function 'erc-insert-timestamp-left
       erc-log-channels t
       erc-log-channels-directory "~/.irclogs"
-      erc-log-insert-log-on-open t
-      )
+      erc-log-insert-log-on-open t)
 
 ;;;;;;;;;;;;;
 ;; EDITING ;;
@@ -165,8 +165,8 @@
 ;; delete the selection with a keypress
 (delete-selection-mode t)
 
-; set tab width to 4 for all buffers
-(setq-default tab-width 4) 
+;; set tab width to 4 for all buffers
+(setq-default tab-width 4)
 
 ; always replace tabs with spaces
 (setq-default indent-tabs-mode nil)
@@ -188,40 +188,40 @@
         try-complete-lisp-symbol))
 
 ;; autocompletion
-(global-auto-complete-mode t)
-(setq ac-auto-start t)                  ;automatically start
-(setq ac-dwim t)                        ;Do what i mean
-(setq ac-override-local-map nil)        ;don't override local map
-; autocomplete in the following modes:
-(setq ac-modes
-      '(emacs-lisp-mode
-        lisp-interaction-mode
-        lisp-mode scheme-mode
-        c-mode
-        cc-mode
-        c++-mode
-        java-mode
-        perl-mode
-        cperl-mode
-        python-mode
-        ruby-mode
-        ecmascript-mode
-        javascript-mode
-        js2-mode
-        php-mode
-        css-mode
-        makefile-mode
-        sh-mode
-        fortran-mode
-        f90-mode
-        ada-mode
-        xml-mode
-        sgml-mode
-        haskell-mode
-        literate-haskell-mode
-        emms-tag-editor-mode
-        asm-mode
-        org-mode))
+;; (global-auto-complete-mode t)
+;; (setq ac-auto-start t)                  ;automatically start
+;; (setq ac-dwim t)                        ;Do what i mean
+;; (setq ac-override-local-map nil)        ;don't override local map
+;; ; autocomplete in the following modes:
+;; (setq ac-modes
+;;       '(emacs-lisp-mode
+;;         lisp-interaction-mode
+;;         lisp-mode scheme-mode
+;;         c-mode
+;;         cc-mode
+;;         c++-mode
+;;         java-mode
+;;         perl-mode
+;;         cperl-mode
+;;         python-mode
+;;         ruby-mode
+;;         ecmascript-mode
+;;         javascript-mode
+;;         js2-mode
+;;         php-mode
+;;         css-mode
+;;         makefile-mode
+;;         sh-mode
+;;         fortran-mode
+;;         f90-mode
+;;         ada-mode
+;;         xml-mode
+;;         sgml-mode
+;;         haskell-mode
+;;         literate-haskell-mode
+;;         emms-tag-editor-mode
+;;         asm-mode
+;;         org-mode))
 
 ;; Volatile highlights shows 
 
@@ -235,6 +235,7 @@
 ;; activate it for all buffers
 (setq-default save-place t)
 (require 'saveplace)
+
 
 ;; savehist keeps track of some history
 (setq savehist-additional-variables
@@ -260,16 +261,40 @@
       time-stamp-format "%04y-%02m-%02d %02H:%02M:%02S (%u)") ; date format
 (add-hook 'write-file-hooks 'time-stamp) ; update when saving
 
+;;;;;;;;;;;;;;;
+;; Yasnippet ;;
+;;;;;;;;;;;;;;;
+;; (require 'yasnippet)
+;; (yas/initialize)
+;; (yas/load-directory (concat user-emacs-directory "personal/snippets/"))
+
+;;;;;;;;;
+;; Git ;;
+;;;;;;;;;
+
+(add-to-list 'load-path "~/.emacs.d/plugins/mo-git-blame")
+(autoload 'mo-git-blame-file "mo-git-blame" nil t)
+(autoload 'mo-git-blame-current "mo-git-blame" nil t)
 
 ;;;;;;;;;;;;;;;;
 ;; MISC SETUP ;;
 ;;;;;;;;;;;;;;;;
 
+;; (setq-default show-trailing-whitespace t)
+
+(setq debug-on-error nil)
+
+;; Stop scss-mode from compiling and saving every fucking file on a .scss save
+;; what the fuck, seriously
+(setq scss-compile-at-save nil)
+
 ;; initialize smex (like ido but for M-x commands)
+(require 'smex)
 (smex-initialize)
 
+
 ;; fixes missing character issues in ansi-term
-(setq ansi-color-for-comint-mode t) 
+(setq ansi-color-for-comint-mode t)
 
 ;; midnight setup. kind of a cron/cleanup mode.
 (setq midnight-mode 't)
@@ -325,6 +350,5 @@
 
 ;; Set up tags
 (setq tags-file-name "~/TAGS")
-
 
 (provide 'jcp-core)

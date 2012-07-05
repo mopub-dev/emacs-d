@@ -1,0 +1,13 @@
+# name: ajax
+# --
+
+var promise = $.ajax({
+    url: "",
+    data: {
+        
+    },
+    cache: false,
+    dataType: "json",
+    success: function (data, text_status, xhr) {},
+    error: function (data, text_status, xhr) {}
+});

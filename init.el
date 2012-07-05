@@ -26,12 +26,23 @@
 (add-to-list 'load-path plugins-dir)
 (add-to-list 'load-path personal-dir)
 
+;; load el-get
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+(unless (require 'el-get nil t)
+  (url-retrieve
+   "https://raw.github.com/dimitri/el-get/master/el-get-install.el"
+   (lambda (s)
+     (goto-char (point-max))
+     (eval-print-last-sexp))))
+
 ;; Load plugins ;;
 (add-to-list 'load-path (concat plugins-dir "auto-complete/"))
 (add-to-list 'load-path (concat plugins-dir "color-theme/"))
 (add-to-list 'load-path (concat plugins-dir "pony-mode/"))
 (add-to-list 'load-path (concat plugins-dir "helm/"))
 (add-to-list 'load-path (concat plugins-dir "slime/"))
+
+(load-file "~/.emacs.d/plugins/rails/scss-mode.el")
 
 ;; personal
 ;; don't change the order, jcp-keys uses defuns from all of these
@@ -53,7 +64,7 @@
 (require 'ansi-color)
 (require 'browse-kill-ring)
 (require 'color-theme)
-(require 'coffee-mode)
+;;(require 'coffee-mode)
 (require 'dpaste)
 (require 'expand-region)
 (require 'ffap)
@@ -66,6 +77,7 @@
 (require 'inf-ruby)
 (require 'less-mode)
 (require 'linum)
+;;(require 'magit)
 (require 'markdown-mode)
 (require 'midnight)
 (require 'org-install)
@@ -82,10 +94,10 @@
 (require 'smex)
 (require 'snippet)
 (require 'speedbar)
-(require 'textmate)
 (require 'uniquify)
 (require 'workgroups)
 (require 'yaml-mode)
+;;(require 'yasnippet)
 
 ;; SLIME
 (setq inferior-lisp-program "/usr/local/bin/sbcl")
@@ -107,12 +119,13 @@
 (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.html$" . django-html-mumamo-mode))
-(add-to-list 'auto-mode-alist '("\\.js$". js2-mode))
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.text$" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.txt$" . markdown-mode))
 (add-to-list 'auto-mode-alist '("bashrc$" . shell-script-mode))
-
+;;(add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
+;;(add-to-list 'auto-mode-alist '("Cakefile" . coffee-mode))
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
 ;;;;;;;;;;;;;
 ;; Aliases ;;
@@ -133,7 +146,7 @@
 (defalias 'cr 'comment-region)
 (defalias 'ucr 'uncomment-region)
 
-;; I really need to get rid of this module. 
+;; I really need to get rid of this module.
 (load-file "~/.emacs.d/plugins/nxhtml/autostart.el")
 
 ;; thats all!
@@ -144,7 +157,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-
  '(js2-basic-offset 4 t)
  '(scheme-program-name "mzscheme")
  '(send-mail-function (quote mailclient-send-it))
@@ -155,4 +167,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(mumamo-background-chunk-major ((t (:background "#32342C"))))
+ '(mumamo-background-chunk-submode1 ((t (:background "dim gray"))))
+ '(mumamo-background-chunk-submode2 ((t (:background "dim gray")))))

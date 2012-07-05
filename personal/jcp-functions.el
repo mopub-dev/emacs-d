@@ -204,5 +204,4 @@
       (set-frame-parameter nil 'alpha '(100 100))
     (set-frame-parameter nil 'alpha '(95 50))))
 
-
 (provide 'jcp-functions)
