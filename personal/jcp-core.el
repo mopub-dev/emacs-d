@@ -351,4 +351,15 @@
 ;; Set up tags
 (setq tags-file-name "~/TAGS")
 
+;; display-graphic-p is true if you're in a graphics-enabled
+;; emacs environment (ie, when you're not in a terminal).
+(if (display-graphic-p)
+    (progn
+      (message "Loading graphic-only settings"))
+  (progn
+    (message "Loading terminal settings")
+    (require 'pbcopy)
+    (turn-on-pbcopy)
+    (color-theme-zenburn)))
+
 (provide 'jcp-core)

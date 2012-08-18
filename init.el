@@ -64,7 +64,7 @@
 (require 'ansi-color)
 (require 'browse-kill-ring)
 (require 'color-theme)
-;;(require 'coffee-mode)
+(require 'coffee-mode)
 (require 'dpaste)
 (require 'expand-region)
 (require 'ffap)
@@ -115,17 +115,17 @@
   (rainbow-mode))
 
 ;; Load both major and minor modes in one call based on file type
-(add-to-list 'auto-mode-alist '("\\.scss$" . all-scss-modes))
-(add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
-(add-to-list 'auto-mode-alist '("\\.html$" . django-html-mumamo-mode))
-(add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.text$" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.txt$" . markdown-mode))
-(add-to-list 'auto-mode-alist '("bashrc$" . shell-script-mode))
-;;(add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
-;;(add-to-list 'auto-mode-alist '("Cakefile" . coffee-mode))
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.scss\\'" . all-scss-modes))
+(add-to-list 'auto-mode-alist '("Gemfile\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.html\\'" . django-html-mumamo-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.txt\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("bashrc\\'" . shell-script-mode))
+(add-to-list 'auto-mode-alist '("\\.coffee\\'" . coffee-mode))
+(add-to-list 'auto-mode-alist '("Cakefile" . coffee-mode))
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 
 ;;;;;;;;;;;;;
 ;; Aliases ;;
