@@ -56,7 +56,7 @@
 (require 'jcp-ruby)
 (require 'jcp-shell)
 (require 'jcp-keys)
-
+(require 'jcp-erc)
 
 ;; Load third party plugins
 (require 'ace-jump-mode)

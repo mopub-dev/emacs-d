@@ -84,8 +84,8 @@
 (setq color-theme-is-global t)
 (color-theme-initialize)
 (if window-system
-    (color-theme-jcp-tres) ;; ns
-  (color-theme-ir-black)) ;; term
+    (color-theme-tomorrow-night-eighties) ;; GUI's
+  (color-theme-ir-black)) ;; terminals
 
 ;;(set-face-font 'default "-outline-Bitstream Vera Sans Mono-normal-r-normal-normal-11-90-96-96-c-*-iso8859-1")
 
@@ -131,29 +131,6 @@
     (helm '(helm-c-source-dired-history)
           ;; Initialize input with current symbol
           ""  nil nil)))
-
-;;;;;;;;;
-;; ERC ;;
-;;;;;;;;;
-
-;; erc
-(erc-timestamp-mode t)
-(erc-match-mode t) ;; Notify me if someone calls me
-(setq erc-server "irc.freenode.net"
-      erc-port 6667
-      erc-nick "streblo"
-      erc-user-full-name "Wub Womper"
-      erc-email-userid "streblo"
-      erc-prompt-for-password t
-      erc-fill-prefix "      "
-      erc-auto-query t
-      erc-keywords '("streblo" "geckimo", "409advisor", "409", "409A")
-      erc-timestamp-only-if-changed-flag nil
-      erc-timestamp-format "%H:%M "
-      erc-insert-timestamp-function 'erc-insert-timestamp-left
-      erc-log-channels t
-      erc-log-channels-directory "~/.irclogs"
-      erc-log-insert-log-on-open t)
 
 ;;;;;;;;;;;;;
 ;; EDITING ;;
@@ -241,8 +218,8 @@
 (setq savehist-additional-variables
       ;; search entries
       '(search ring regexp-search-ring)
-      ;; save every minute
-      savehist-autosave-interval 60
+      ;; save every 20 seconds
+      savehist-autosave-interval 20
       ;; keep the home clean
       savehist-file (concat user-emacs-directory "savehist"))
 (savehist-mode t)

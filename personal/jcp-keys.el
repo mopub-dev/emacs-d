@@ -67,7 +67,7 @@
 (global-set-key (kbd "C-x C-y") 'browse-kill-ring)
 
 ;; override C-p with string replacing
-(global-set-key "\C-p" 'replace-string)
+(global-set-key (kbd "C-p") 'replace-string)
 
 ;; Use regex searches by default.
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
