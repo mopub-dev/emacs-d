@@ -241,9 +241,9 @@
 ;;;;;;;;;;;;;;;
 ;; Yasnippet ;;
 ;;;;;;;;;;;;;;;
-;; (require 'yasnippet)
-;; (yas/initialize)
-;; (yas/load-directory (concat user-emacs-directory "personal/snippets/"))
+(require 'yasnippet)
+(yas/initialize)
+(yas/load-directory (concat user-emacs-directory "personal/snippets/"))
 
 ;;;;;;;;;
 ;; Git ;;

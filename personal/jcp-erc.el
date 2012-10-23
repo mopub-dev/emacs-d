@@ -33,7 +33,17 @@
 
 ;; which channels to autojoin
 (setq erc-autojoin-channels-alist
-  '((".*\\.freenode.net" "#emacs" "#python" "#django" "#postgresql" "#modest")))
+  '((".*\\.freenode.net"
+     "#emacs"
+     "#python"
+     "#django"
+     "#postgresql"
+     "#nginx"
+     "#MacOSX"
+     "#startups"
+     "#documentcloud"
+     "#wikipedia"
+     "#gamedev")))
 
 ;; check channels for activity 
 (erc-track-mode t)
@@ -65,3 +75,4 @@
 ;; switch to ERC with Ctrl+c e
 (global-set-key (kbd "C-c e") 'erc-switcher) ;; ERC
 
+(provide 'jcp-erc)
