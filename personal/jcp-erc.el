@@ -56,23 +56,7 @@
 ;; don't show any of this anywhere
 (setq erc-hide-list '("JOIN" "PART" "QUIT" "NICK"))
 
-
-(defun erc-switcher ()
-  "Connect to ERC, or switch to last active buffer"
-  (interactive)
-  
-  ;; ERC already active?
-  (if (get-buffer "irc.freenode.net:6667") 
-      ;; yes: switch to last active
-      (erc-track-switch-buffer 1)
-      ;; no: maybe start ERC
-      (when (y-or-n-p "Start ERC? ") 
-        (erc :server "irc.freenode.net"
-             :port 6667
-             :nick "streblo"
-             :full-name "Wub Womper"))))
-
 ;; switch to ERC with Ctrl+c e
-(global-set-key (kbd "C-c e") 'erc-switcher) ;; ERC
+(global-set-key (kbd "C-c e") 'erc) ;; ERC
 
 (provide 'jcp-erc)
