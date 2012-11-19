@@ -61,6 +61,7 @@
 (require 'ffap)
 (require 'find-recursive)
 (require 'git)
+(require 'golden-ratio)
 (require 'hexrgb)
 (require 'helm-config)
 (require 'highlight-current-line)
