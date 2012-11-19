@@ -31,19 +31,19 @@
 ;; autojoin channels on connect
 (erc-autojoin-mode t)
 
-;; which channels to autojoin
-(setq erc-autojoin-channels-alist
-  '((".*\\.freenode.net"
-     "#emacs"
-     "#python"
-     "#django"
-     "#postgresql"
-     "#nginx"
-     "#MacOSX"
-     "#startups"
-     "#documentcloud"
-     "#wikipedia"
-     "#gamedev")))
+;; ;; which channels to autojoin
+;; (setq erc-autojoin-channels-alist
+;;   '((".*\\.freenode.net"
+;;      "#emacs"
+;;      "#python"
+;;      "#django"
+;;      "#postgresql"
+;;      "#nginx"
+;;      "#MacOSX"
+;;      "#startups"
+;;      "#documentcloud"
+;;      "#wikipedia"
+;;      "#gamedev")))
 
 ;; check channels for activity 
 (erc-track-mode t)
