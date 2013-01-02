@@ -6,6 +6,14 @@
 
 (message "Loading Emacs settings")
 
+;; Turn off mouse interface early in startup to avoid momentary display
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+
+;; No splash screen please ... jeez
+(setq inhibit-startup-message t)
+
 ;; Set up all of the load directories.
 
 (defvar emacs-dir (file-name-directory load-file-name)
@@ -25,6 +33,19 @@
 (add-to-list 'load-path emacs-dir)
 (add-to-list 'load-path plugins-dir)
 (add-to-list 'load-path personal-dir)
+
+;; Load el-get
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+
+(unless (require 'el-get nil 'noerror)
+  (with-current-buffer
+      (url-retrieve-synchronously
+       "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
+    (let (el-get-master-branch)
+      (goto-char (point-max))
+      (eval-print-last-sexp))))
+
+(el-get 'sync)
 
 ;; Load plugins ;;
 (add-to-list 'load-path (concat plugins-dir "auto-complete/"))

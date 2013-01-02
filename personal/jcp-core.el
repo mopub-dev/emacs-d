@@ -165,40 +165,40 @@
         try-complete-lisp-symbol))
 
 ;; autocompletion
-;; (global-auto-complete-mode t)
-;; (setq ac-auto-start t)                  ;automatically start
-;; (setq ac-dwim t)                        ;Do what i mean
-;; (setq ac-override-local-map nil)        ;don't override local map
-;; ; autocomplete in the following modes:
-;; (setq ac-modes
-;;       '(emacs-lisp-mode
-;;         lisp-interaction-mode
-;;         lisp-mode scheme-mode
-;;         c-mode
-;;         cc-mode
-;;         c++-mode
-;;         java-mode
-;;         perl-mode
-;;         cperl-mode
-;;         python-mode
-;;         ruby-mode
-;;         ecmascript-mode
-;;         javascript-mode
-;;         js2-mode
-;;         php-mode
-;;         css-mode
-;;         makefile-mode
-;;         sh-mode
-;;         fortran-mode
-;;         f90-mode
-;;         ada-mode
-;;         xml-mode
-;;         sgml-mode
-;;         haskell-mode
-;;         literate-haskell-mode
-;;         emms-tag-editor-mode
-;;         asm-mode
-;;         org-mode))
+(global-auto-complete-mode t)
+(setq ac-auto-start t)                  ;automatically start
+(setq ac-dwim t)                        ;Do what i mean
+(setq ac-override-local-map nil)        ;don't override local map
+; autocomplete in the following modes:
+(setq ac-modes
+      '(emacs-lisp-mode
+        lisp-interaction-mode
+        lisp-mode scheme-mode
+        c-mode
+        cc-mode
+        c++-mode
+        java-mode
+        perl-mode
+        cperl-mode
+        python-mode
+        ruby-mode
+        ecmascript-mode
+        javascript-mode
+        js2-mode
+        php-mode
+        css-mode
+        makefile-mode
+        sh-mode
+        fortran-mode
+        f90-mode
+        ada-mode
+        xml-mode
+        sgml-mode
+        haskell-mode
+        literate-haskell-mode
+        emms-tag-editor-mode
+        asm-mode
+        org-mode))
 
 ;; Volatile highlights shows 
 
@@ -288,8 +288,13 @@
 ;; uniquify renames buffers to be unique, so no more index.html | index.html<2>
 (setq uniquify-buffer-name-style 'forward)
 
-;; Turn off backup files (those fucking annoying foo~ files)
-(setq make-backup-files nil)
+;; Write backup files to own directory
+(setq backup-directory-alist
+      `(("." . ,(expand-file-name
+                 (concat user-emacs-directory "backups")))))
+
+;; Make backups of files, even when they're in version control
+(setq vc-make-backup-files t)
 
 ;; y/n instead of yes/no
 (fset 'yes-or-no-p 'y-or-n-p)

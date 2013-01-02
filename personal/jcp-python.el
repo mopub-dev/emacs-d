@@ -1,5 +1,7 @@
 ;; flymake config
 
+;;(require 'jedi)
+
 (load-library "flymake-cursor")
 
 (when (load "flymake" t)
@@ -31,5 +33,6 @@
 
 (add-hook 'find-file-hook 'flymake-find-file-hook)
 (add-hook 'python-mode-hook 'show-fly-err-at-point)
+;;(add-hook 'python-mode-hook 'jedi:setup)
 
 (provide 'jcp-python)
