@@ -61,9 +61,6 @@
                  (not (equal f ".")))
         (add-to-list 'load-path name)))))
 
-;; add the first level subfolders of vendor automatically
-(add-subfolders-to-load-path vendor-dir)
-
 (setq package-archives
       '(("ELPA" . "http://tromey.com/elpa/")
         ("gnu" . "http://elpa.gnu.org/packages/")
@@ -96,6 +93,10 @@
 ;;(add-to-list 'default-frame-alist '(alpha 95 50))
 ;;(global-set-key (kbd "C-c t") 'toggle-transparency)
 
+;; free from the hell of annoying buffers such like *Help*, *Completions*, *compilation*, and etc.
+;; https://github.com/m2ym/popwin-el
+(require 'popwin)
+(setq display-buffer-function 'popwin:display-buffer)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; HELM CONFIGURATION ;;
@@ -242,8 +243,10 @@
 ;; Yasnippet ;;
 ;;;;;;;;;;;;;;;
 (require 'yasnippet)
-(yas/initialize)
+;; (yas/initialize)
 (yas/load-directory (concat user-emacs-directory "personal/snippets/"))
+(yas-global-mode 1)
+
 
 ;;;;;;;;;
 ;; Git ;;

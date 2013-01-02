@@ -2,7 +2,6 @@
 ;; JAVASCRIPT ;;
 ;;;;;;;;;;;;;;;;
 
-(load-file "~/.emacs.d/plugins/js2.elc")
 (require 'js2-mode)
 
 ;; Indentation fixes for js2-mode

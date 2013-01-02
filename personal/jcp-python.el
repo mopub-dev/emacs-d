@@ -1,38 +1,42 @@
-;; flymake config
+;; emacs-for-python
+;; https://github.com/gabrielelanaro/emacs-for-python
 
-;;(require 'jedi)
+;; Load everything from emacs-for-python at once:
+;; (load-file "~/.emacs.d/plugins/emacs-for-python/epy-init.el")
 
-(load-library "flymake-cursor")
+;; Load emacs-for-python packages individually:
+(add-to-list 'load-path "~/.emacs.d/plugins/emacs-for-python/") ;; tell where to load the various files
+(require 'epy-setup)      ;; It will setup other loads, it is required!
+(require 'epy-python)     ;; If you want the python facilities [optional]
+(require 'epy-completion) ;; If you want the autocompletion settings [optional]
+(require 'epy-editing)    ;; For configurations related to editing [optional]
+;; (require 'epy-bindings)   ;; For my suggested keybindings [optional]
+(require 'epy-nose)       ;; For nose integration
 
-(when (load "flymake" t)
-  (defun flymake-pyflakes-init ()
-    (let* ((temp-file (flymake-init-create-temp-buffer-copy
-                       'flymake-create-temp-inplace))
-           (local-file (file-relative-name
-                        temp-file
-                        (file-name-directory buffer-file-name))))
-      (list "pyflakes" (list local-file))))
+;; Setup the linter
+(epy-setup-checker "pyflakes %f")
 
-  (add-to-list 'flymake-allowed-file-name-masks
-               '("\\.py\\'" flymake-pyflakes-init)))
+;; Highlights different levels of indentation
+(require 'highlight-indentation)
+(add-hook 'python-mode-hook 'highlight-indentation)
 
-(defun python-debug ()
-  (interactive)
-  (insert "from IPython.Shell import IPShellEmbed; IPShellEmbed()()"))
+;; Turn on/off parens pairing. On by default. Set skeleton-pair to nil to turn it off.
+;; (setq skeleton-pair nil) 
 
-(defun my-python-compile ()
-  "Use compile to run python programs"
-  (interactive)
-  (compile (concat "python " (buffer-name))))
+;; Better autocomplete for python
+(require 'jedi)
+(add-hook 'python-mode-hook 'jedi:setup)
 
-(setq compilation-scroll-output t)
+;; Line highlighting
+(global-hl-line-mode t)
+;; change with the color that you like
+;; for a list of colors: http://raebear.net/comp/emacscolors.html
+(set-face-background 'hl-line "black") 
 
-(defun my-python-mode-hook ()
-  (require 'python)
-  (local-set-key "\C-c\C-c" 'my-python-compile))
+;; ipython configuration
+(epy-setup-ipython)
 
-(add-hook 'find-file-hook 'flymake-find-file-hook)
-(add-hook 'python-mode-hook 'show-fly-err-at-point)
-;;(add-hook 'python-mode-hook 'jedi:setup)
+;; django snippets
+(epy-django-snippets)
 
 (provide 'jcp-python)

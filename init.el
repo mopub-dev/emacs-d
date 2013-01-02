@@ -26,9 +26,6 @@
 (defvar personal-dir (concat emacs-dir "personal/")
   "My personal configs.")
 
-(defvar vendor-dir (concat emacs-dir "elpa/")
-  "ELPA-installed plugins.")
-
 ;; add all this to the `load-path'
 (add-to-list 'load-path emacs-dir)
 (add-to-list 'load-path plugins-dir)
@@ -50,11 +47,8 @@
 ;; Load plugins ;;
 (add-to-list 'load-path (concat plugins-dir "auto-complete/"))
 (add-to-list 'load-path (concat plugins-dir "color-theme/"))
-(add-to-list 'load-path (concat plugins-dir "pony-mode/"))
 (add-to-list 'load-path (concat plugins-dir "helm/"))
 (add-to-list 'load-path (concat plugins-dir "slime/"))
-
-(load-file "~/.emacs.d/plugins/rails/scss-mode.el")
 
 ;; personal
 ;; don't change the order, jcp-keys uses defuns from all of these
@@ -86,30 +80,20 @@
 (require 'helm-config)
 (require 'highlight-current-line)
 (require 'ido)
-(require 'inf-ruby)
-(require 'less-mode)
 (require 'linum)
-;;(require 'magit)
 (require 'markdown-mode)
 (require 'midnight)
-(require 'org-install)
 (require 'package)
-(require 'pony-mode)
-(require 'python)
-(require 'python-pep8)
 (require 'rainbow-mode)
 (require 'recentf)
-(require 'ruby-electric)
-(require 'ruby-mode)
 (require 'saveplace)
-(require 'scss-mode)
 (require 'smex)
-(require 'snippet)
 (require 'speedbar)
 (require 'uniquify)
 (require 'workgroups)
 (require 'yaml-mode)
-;;(require 'yasnippet)
+(require 'yasnippet)
+
 
 ;; SLIME
 (setq inferior-lisp-program "/usr/local/bin/sbcl")
