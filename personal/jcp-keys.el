@@ -62,7 +62,7 @@
 (global-set-key (kbd "C-@") 'er/expand-region)
 
 ;; Helm - like spotlight in emacs
-(global-set-key (quote [(meta return)]) 'helm)
+(global-set-key (quote [(meta return)]) 'helm-mini)
 
 ;; Killring browser
 (global-set-key (kbd "C-c k") 'browse-kill-ring)
@@ -99,4 +99,4 @@
 (global-set-key "\C-d" 'duplicate-line)
 (global-set-key "\C-xt" 'tag-word-or-region)
 
-(provide 'jcp-keys) 
+(provide 'jcp-keys)

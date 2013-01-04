@@ -58,8 +58,8 @@
 (require 'jcp-keys)
 (require 'jcp-erc)
 
-;; Load other plugins
 
+;; Load other plugins
 
 ;; I really need to get rid of this module.
 (load-file "~/.emacs.d/plugins/nxhtml/autostart.el")
