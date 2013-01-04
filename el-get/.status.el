@@ -1,5 +1,6 @@
 ((ace-jump-mode status "installed" recipe
                 (:name ace-jump-mode :website "https://github.com/winterTTr/ace-jump-mode/wiki" :description "A quick cursor location minor mode for emacs" :type github :pkgname "winterTTr/ace-jump-mode" :features ace-jump-mode))
+ (ansi-color status "required" recipe nil)
  (auto-complete status "installed" recipe
                 (:name auto-complete :website "http://cx4a.org/software/auto-complete/" :description "The most intelligent auto-completion extension." :type github :pkgname "auto-complete/auto-complete" :depends
                        (popup fuzzy)))
@@ -13,6 +14,13 @@
                        (add-to-list 'auto-mode-alist
                                     '("Cakefile" . coffee-mode))
                        (setq coffee-js-mode 'javascript-mode))))
+ (color-theme status "installed" recipe
+              (:name color-theme :description "An Emacs-Lisp package with more than 50 color themes for your use. For questions about color-theme" :website "http://www.nongnu.org/color-theme/" :type http-tar :options
+                     ("xzf")
+                     :url "http://download.savannah.gnu.org/releases/color-theme/color-theme-6.6.0.tar.gz" :load "color-theme.el" :features "color-theme" :post-init
+                     (progn
+                       (color-theme-initialize)
+                       (setq color-theme-is-global t))))
  (ctable status "installed" recipe
          (:name ctable :description "Table Component for elisp" :type github :pkgname "kiwanami/emacs-ctable"))
  (deferred status "installed" recipe
@@ -26,12 +34,22 @@
              (deferred ctable)))
  (expand-region status "installed" recipe
                 (:name expand-region :type github :pkgname "magnars/expand-region.el" :description "Expand region increases the selected region by semantic units. Just keep pressing the key until it selects what you want." :website "https://github.com/magnars/expand-region.el#readme" :features expand-region))
+ (ffap- status "installed" recipe
+        (:name ffap- :auto-generated t :type emacswiki :description "Extensions to library `ffap.el'" :website "https://raw.github.com/emacsmirror/emacswiki.org/master/ffap-.el"))
  (flymake status "installed" recipe
           (:name flymake :description "Continuous syntax checking for Emacs." :type github :pkgname "illusori/emacs-flymake"))
+ (flymake-cursor status "installed" recipe
+                 (:name flymake-cursor :type github :pkgname "illusori/emacs-flymake-cursor" :description "displays flymake error msg in minibuffer after delay (illusori/github)" :website "http://github.com/illusori/emacs-flymake-cursor"))
  (fuzzy status "installed" recipe
         (:name fuzzy :website "https://github.com/auto-complete/fuzzy-el" :description "Fuzzy matching utilities for GNU Emacs" :type github :pkgname "auto-complete/fuzzy-el"))
  (haml-mode status "installed" recipe
             (:name haml-mode :description "Major mode for editing Haml files" :type github :pkgname "nex3/haml-mode"))
+ (helm status "installed" recipe
+       (:name helm :description "Emacs incremental and narrowing framework" :type github :pkgname "emacs-helm/helm" :features helm-config))
+ (hexrgb status "installed" recipe
+         (:name hexrgb :auto-generated t :type emacswiki :description "Functions to manipulate colors, including RGB hex strings." :website "https://raw.github.com/emacsmirror/emacswiki.org/master/hexrgb.el"))
+ (htmlize status "installed" recipe
+          (:name htmlize :website "http://www.emacswiki.org/emacs/Htmlize" :description "Convert buffer text and decorations to HTML." :type http :url "http://fly.srk.fer.hr/~hniksic/emacs/htmlize.el.cgi" :localname "htmlize.el"))
  (jedi status "installed" recipe
        (:name jedi :description "An awesome Python auto-completion for Emacs" :type github :pkgname "tkf/emacs-jedi" :build
               (("make" "requirements"))
@@ -45,10 +63,19 @@
                   (autoload 'js3-mode "js3" nil t)))
  (less status "installed" recipe
        (:name less :auto-generated t :type emacswiki :description "less style view mode" :website "https://raw.github.com/emacsmirror/emacswiki.org/master/less.el"))
+ (magit status "installed" recipe
+        (:name magit :website "https://github.com/magit/magit#readme" :description "It's Magit! An Emacs mode for Git." :type github :pkgname "magit/magit" :info "." :build
+               `(("make" ,(format "EMACS=%s" el-get-emacs)
+                  "all"))
+               :build/berkeley-unix
+               (("touch" "`find . -name Makefile`")
+                ("gmake"))))
  (markdown-mode status "installed" recipe
                 (:name markdown-mode :description "Major mode to edit Markdown files in Emacs" :type git :url "git://jblevins.org/git/markdown-mode.git" :before
                        (add-to-list 'auto-mode-alist
                                     '("\\.\\(md\\|mdown\\|markdown\\)\\'" . markdown-mode))))
+ (midje-mode status "installed" recipe
+             (:name midje-mode :type github :pkgname "dnaumov/midje-mode" :website "https://github.com/dnaumov/midje-mode" :description "Midje is a testing framework for the Clojure programming language;\nmidje-mode integrates it with Emacs, providing features like navigation and test reports."))
  (nginx-mode status "installed" recipe
              (:name nginx-mode :website "https://github.com/ajc/nginx-mode" :description "major mode for editing nginx config files" :type github :pkgname "ajc/nginx-mode"))
  (package status "installed" recipe
@@ -73,6 +100,10 @@
                            ("gnu" . "http://elpa.gnu.org/packages/")
                            ("marmalade" . "http://marmalade-repo.org/packages/")
                            ("SC" . "http://joseito.republika.pl/sunrise-commander/"))))))
+ (pbcopy status "installed" recipe
+         (:name pbcopy :description "An interface to OSX's pbcopy utility" :type github :pkgname "jkp/pbcopy.el" :features "pbcopy"))
+ (pomodoro status "installed" recipe
+           (:name pomodoro :auto-generated t :type emacswiki :description "Pomodoro Technique for emacs" :website "https://raw.github.com/emacsmirror/emacswiki.org/master/pomodoro.el"))
  (popup status "installed" recipe
         (:name popup :website "https://github.com/auto-complete/popup-el" :description "Visual Popup Interface Library for Emacs" :type github :pkgname "auto-complete/popup-el"))
  (popwin status "installed" recipe
@@ -90,6 +121,8 @@
  (smex status "installed" recipe
        (:name smex :description "M-x interface with Ido-style fuzzy matching." :type github :pkgname "nonsequitur/smex" :features smex :post-init
               (smex-initialize)))
+ (speedbar-extension status "installed" recipe
+                     (:name speedbar-extension :auto-generated t :type emacswiki :description "Some extensions for speedbar" :website "https://raw.github.com/emacsmirror/emacswiki.org/master/speedbar-extension.el"))
  (yaml-mode status "installed" recipe
             (:name yaml-mode :description "Simple major mode to edit YAML file for emacs" :type github :pkgname "yoshiki/yaml-mode"))
  (yasnippet status "installed" recipe

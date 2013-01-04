@@ -1,19 +1,18 @@
-(require 'auto-complete)
+(message "Loading jcp core module")
+
 (require 'cl)
 (require 'color-theme)
-(require 'helm-config)
 (require 'ido)
 (require 'package)
 (require 'markdown-mode)
 
-(message "Loading jcp core module")
 
-;;;;;;;;;;;;
-;; SYSTEM ;;
-;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;
+;; SYSTEM SETUP;;
+;;;;;;;;;;;;;;;;;
 
 ;; Set the path to the one you'd see in Terminal.app
-;; This is hugely helpful when you're using carbon emacs on OSX.
+;; This is hugely helpful when you're using emacs on OSX.
 ;; Only tested in emacs 23/24.
 (defun set-exec-path-from-shell-PATH ()
   (let ((path-from-shell
@@ -45,8 +44,6 @@
       'byte-compile-not-obsolete-vars
       'font-lock-beginning-of-syntax-function)))
 
-;; Deleted files go to the trash
-(setq delete-by-moving-to-trash t)
 
 ;;;;;;;;;;;;;
 ;; PACKAGE ;;
@@ -71,6 +68,9 @@
 ;; DISPLAY ;;
 ;;;;;;;;;;;;;
 
+;; Set the default frame size
+(setq initial-frame-alist '((width . 170) (height . 48)))
+
 ;; Set the default major mode to markdown
 (setq initial-major-mode 'markdown-mode)
 
@@ -82,21 +82,20 @@
 (color-theme-initialize)
 (if window-system
     (color-theme-tomorrow-night-eighties) ;; GUI's
-  (color-theme-ir-black)) ;; terminals
+    (color-theme-ir-black)) ;; terminals
 
-;;(set-face-font 'default "-outline-Bitstream Vera Sans Mono-normal-r-normal-normal-11-90-96-96-c-*-iso8859-1")
 
-;; window transparency
-
-;;(set-frame-parameter (selected-frame) 'alpha '(<active> [<inactive>]))
-;;(set-frame-parameter (selected-frame) 'alpha '(95 50))
-;;(add-to-list 'default-frame-alist '(alpha 95 50))
-;;(global-set-key (kbd "C-c t") 'toggle-transparency)
-
-;; free from the hell of annoying buffers such like *Help*, *Completions*, *compilation*, and etc.
+;; free from the hell of annoying buffers such like *Help*,
+;; *Completions*, *compilation*, and etc.
 ;; https://github.com/m2ym/popwin-el
 (require 'popwin)
 (setq display-buffer-function 'popwin:display-buffer)
+
+;; Turn off toolbar/menubar/scrollbars
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; HELM CONFIGURATION ;;
@@ -137,6 +136,9 @@
 ;; EDITING ;;
 ;;;;;;;;;;;;;
 
+;; Highlight trailing whitespace
+(setq-default show-trailing-whitespace t)
+
 ;; Highlight selection
 (transient-mark-mode t)
 
@@ -170,6 +172,7 @@
 (setq ac-auto-start t)                  ;automatically start
 (setq ac-dwim t)                        ;Do what i mean
 (setq ac-override-local-map nil)        ;don't override local map
+
 ; autocomplete in the following modes:
 (setq ac-modes
       '(emacs-lisp-mode
@@ -201,34 +204,36 @@
         asm-mode
         org-mode))
 
-;; Volatile highlights shows 
-
-
 ;;;;;;;;;;;;;;;;;;
 ;; SAVING FILES ;;
 ;;;;;;;;;;;;;;;;;;
 
-;; saveplace remembers your location in a file when saving files
-(setq save-place-file (concat user-emacs-directory "saveplace"))
-;; activate it for all buffers
-(setq-default save-place t)
+;; Saveplace remembers your location in a file when saving files
 (require 'saveplace)
 
+;; Saveplace file location:
+(setq save-place-file (concat user-emacs-directory "saveplace"))
 
-;; savehist keeps track of some history
+;; Activate it for all buffers
+(setq-default save-place t)
+
+;; Savehist keeps track of some history
 (setq savehist-additional-variables
       ;; search entries
       '(search ring regexp-search-ring)
       ;; save every 20 seconds
       savehist-autosave-interval 20
-      ;; keep the home clean
+      ;; file location:
       savehist-file (concat user-emacs-directory "savehist"))
+
+;; Turn savehist on
 (savehist-mode t)
 
-;; save recent files
+;; Save recent files
 (setq recentf-save-file (concat user-emacs-directory "recentf")
       recentf-max-saved-items 200
       recentf-max-menu-items 15)
+
 (recentf-mode t)
 
 ;; time-stamps
@@ -239,9 +244,23 @@
       time-stamp-format "%04y-%02m-%02d %02H:%02M:%02S (%u)") ; date format
 (add-hook 'write-file-hooks 'time-stamp) ; update when saving
 
+;; Write backup files to own directory
+(setq backup-directory-alist
+      `(("." . ,(expand-file-name
+                 (concat user-emacs-directory "backups")))))
+
+;; Make backups of files, even when they're in version control
+(setq vc-make-backup-files t)
+
+;; Scratch persistance
+(require 'jcp-scratch-persist)
+(load-persistent-scratch)
+(push #'save-persistent-scratch kill-emacs-hook)
+
 ;;;;;;;;;;;;;;;
 ;; Yasnippet ;;
 ;;;;;;;;;;;;;;;
+
 (require 'yasnippet)
 ;; (yas/initialize)
 (yas/load-directory (concat user-emacs-directory "personal/snippets/"))
@@ -257,30 +276,12 @@
 (autoload 'mo-git-blame-current "mo-git-blame" nil t)
 
 ;;;;;;;;;;;;;;;;
-;; MISC SETUP ;;
+;; MINIBUFFER ;;
 ;;;;;;;;;;;;;;;;
-
-;; (setq-default show-trailing-whitespace t)
-
-(setq debug-on-error nil)
-
-;; Stop scss-mode from compiling and saving every fucking file on a .scss save
-;; what the fuck, seriously
-(setq scss-compile-at-save nil)
 
 ;; initialize smex (like ido but for M-x commands)
 (require 'smex)
 (smex-initialize)
-
-
-;; fixes missing character issues in ansi-term
-(setq ansi-color-for-comint-mode t)
-
-;; midnight setup. kind of a cron/cleanup mode.
-(setq midnight-mode 't)
-
-;; revert buffers automatically when underlying files are changed externally
-(global-auto-revert-mode t)
 
 ;; ido.el support.
 ;; ido adds some functionality to buffer/file finding, its really useful
@@ -291,13 +292,33 @@
 ;; uniquify renames buffers to be unique, so no more index.html | index.html<2>
 (setq uniquify-buffer-name-style 'forward)
 
-;; Write backup files to own directory
-(setq backup-directory-alist
-      `(("." . ,(expand-file-name
-                 (concat user-emacs-directory "backups")))))
+;; Display the time in the minibuffer
+(display-time)
 
-;; Make backups of files, even when they're in version control
-(setq vc-make-backup-files t)
+;; Line and column numbers in the bar above the minibuffer
+(line-number-mode 1)
+(column-number-mode 1)
+
+
+;;;;;;;;;;;;;;;;
+;; MISC SETUP ;;
+;;;;;;;;;;;;;;;;
+
+;; Deleted files go to the trash
+(setq delete-by-moving-to-trash t)
+
+;; Stop opening the debugger on error
+(setq debug-on-error nil)
+(setq-global debug-on-error nil)
+
+;; fixes missing character issues in ansi-term
+(setq ansi-color-for-comint-mode t)
+
+;; midnight setup. kind of a cron/cleanup mode.
+(setq midnight-mode 't)
+
+;; revert buffers automatically when underlying files are changed externally
+(global-auto-revert-mode t)
 
 ;; y/n instead of yes/no
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -306,13 +327,6 @@
 (setq inhibit-startup-echo-area-message t)
 (setq inhibit-startup-message t)
 
-;; Display the time in the minibuffer
-(display-time)
-
-;; Line and column numbers in the bar above the minibuffer
-(line-number-mode 1)
-(column-number-mode 1)
-
 ;; Set the meta key to command on OSX (its set to 'option' in emacs23)
 (setq mac-command-modifier 'meta)
 
@@ -320,18 +334,10 @@
 (setq visible-bell t)
 (setq skeleton-pair t)
 
-;; Turn off toolbar/menubar/scrollbars
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
-
 ;; display them in the echo area. Why this is not default, I don't understand.
 (require 'tooltip)
 (tooltip-mode -1)
 (setq tooltip-use-echo-area t)
-
-;; set the default frame size
-(setq initial-frame-alist '((width . 170) (height . 48)))
 
 ;; Set up tags
 (setq tags-file-name "~/TAGS")

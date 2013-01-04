@@ -2,6 +2,8 @@
 ;; Key Bindings ;;
 ;;;;;;;;;;;;;;;;;;
 
+(require 'jcp-functions)
+
 ;; dpsastes
 (global-set-key "\C-cd" 'dpaste-region)
 
@@ -81,7 +83,7 @@
 
 
 ;; F1 - F12
-(global-set-key [f1] 'ns-toggle-fullscreen)
+(global-set-key [f1] 'toggle-selective-display)
 (global-set-key [f2] 'ansi-term)
 (global-set-key [f3] (lambda () (interactive) (eshell t)))
 (global-set-key [f4] 'browse-kill-ring)

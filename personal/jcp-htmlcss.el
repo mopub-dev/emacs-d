@@ -1,3 +1,8 @@
+;; Stop scss-mode from compiling and saving every fucking file on a .scss save
+;; what the fuck, seriously
+(setq scss-compile-at-save nil)
+
+
 ;; Stops flymake from checking xml/html files
 (delete '("\\.html?\\'" flymake-xml-init) flymake-allowed-file-name-masks)
 

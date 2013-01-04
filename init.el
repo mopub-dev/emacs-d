@@ -64,35 +64,17 @@
 (require 'jcp-keys)
 (require 'jcp-erc)
 
-;; Load third party plugins
-(require 'ace-jump-mode)
-(require 'auto-complete)
-(require 'ansi-color)
-(require 'browse-kill-ring)
-(require 'color-theme)
-(require 'coffee-mode)
-(require 'dpaste)
-(require 'expand-region)
-(require 'ffap)
+;; Load other plugins
 (require 'find-recursive)
-(require 'git)
-(require 'hexrgb)
-(require 'helm-config)
 (require 'highlight-current-line)
 (require 'ido)
 (require 'linum)
-(require 'markdown-mode)
 (require 'midnight)
 (require 'package)
-(require 'rainbow-mode)
 (require 'recentf)
-(require 'saveplace)
-(require 'smex)
 (require 'speedbar)
 (require 'uniquify)
 (require 'workgroups)
-(require 'yaml-mode)
-(require 'yasnippet)
 
 
 ;; SLIME
@@ -104,6 +86,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; General Settings ;;
 ;;;;;;;;;;;;;;;;;;;;;;
+
+
 
 ;; CSS and Rainbow modes
 (defun all-scss-modes()
