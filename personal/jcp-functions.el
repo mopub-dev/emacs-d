@@ -1,5 +1,52 @@
 (require 'cl)
 
+(defun move-line-down ()
+  (interactive)
+  (let ((col (current-column)))
+    (save-excursion
+      (forward-line)
+      (transpose-lines 1))
+    (forward-line)
+    (move-to-column col)))
+
+(defun rename-current-buffer-file ()
+  "Renames current buffer and file it is visiting."
+  (interactive)
+  (let ((name (buffer-name))
+        (filename (buffer-file-name)))
+    (if (not (and filename (file-exists-p filename)))
+        (error "Buffer '%s' is not visiting a file!" name)
+      (let ((new-name (read-file-name "New name: " filename)))
+        (if (get-buffer new-name)
+            (error "A buffer named '%s' already exists!" new-name)
+          (rename-file filename new-name 1)
+          (rename-buffer new-name)
+          (set-visited-file-name new-name)
+          (set-buffer-modified-p nil)
+          (message "File '%s' successfully renamed to '%s'"
+                   name (file-name-nondirectory new-name)))))))
+
+(defun delete-current-buffer-file ()
+  "Removes file connected to current buffer and kills buffer."
+  (interactive)
+  (let ((filename (buffer-file-name))
+        (buffer (current-buffer))
+        (name (buffer-name)))
+    (if (not (and filename (file-exists-p filename)))
+        (ido-kill-buffer)
+      (when (yes-or-no-p "Are you sure you want to remove this file? ")
+        (delete-file filename)
+        (kill-buffer buffer)
+        (message "File '%s' successfully removed" filename)))))
+
+(defun move-line-up ()
+  (interactive)
+  (let ((col (current-column)))
+    (save-excursion
+      (forward-line)
+      (transpose-lines -1))
+    (move-to-column col)))
+
 (defun open-with ()
   "Uses the OSX `open' command to open the current buffer with another
    program."
@@ -16,7 +63,7 @@
   "Python shell singleton."
   (interactive)
   (if (not (get-buffer "*bpython*"))
-      (progn 
+      (progn
         (ansi-term "/usr/local/bin/bpython")
         (rename-buffer "*bpython*"))
     (switch-to-buffer "*bpython*")))
@@ -25,7 +72,7 @@
   "Bash shell singleton."
   (interactive)
   (if (not (get-buffer "*bash-term*"))
-      (progn 
+      (progn
         (ansi-term "/bin/bash")
         (rename-buffer "*bash-term*"))
     (switch-to-buffer "*bash-term*")))
@@ -193,6 +240,15 @@
   (multi-occur
    (get-buffers-matching-mode major-mode)
    (car (occur-read-primary-args))))
+
+(defun cleanup-buffer-safe ()
+  "Perform a bunch of safe operations on the whitespace content of a buffer.
+Does not indent buffer, because it is used for a before-save-hook, and that
+might be bad."
+  (interactive)
+  (untabify (point-min) (point-max))
+  (delete-trailing-whitespace)
+  (set-buffer-file-coding-system 'utf-8))
 
 ;; Etc
 

@@ -2245,6 +2245,21 @@ COLOR is a color name or hex RGB string that starts with \"#\".
 
 ;;;***
 
+;;;### (autoloads (highlight-current-line-minor-mode) "highlight-current-line/highlight-current-line"
+;;;;;;  "highlight-current-line/highlight-current-line.el" (20710
+;;;;;;  21668))
+;;; Generated autoloads from highlight-current-line/highlight-current-line.el
+
+(autoload 'highlight-current-line-minor-mode "highlight-current-line/highlight-current-line" "\
+Toggle highlight-current-line minor mode.
+With ARG, turn minor mode on if ARG is positive, off otherwise.
+You can customize the face of the highlighted line and whether the entire
+line is hightlighted by customizing the group highlight-current-line.
+
+\(fn &optional ARG)" t nil)
+
+;;;***
+
 ;;;### (autoloads (htmlize-many-files-dired htmlize-many-files htmlize-file
 ;;;;;;  htmlize-region htmlize-buffer) "htmlize/htmlize" "htmlize/htmlize.el"
 ;;;;;;  (20710 8126))
@@ -2309,6 +2324,107 @@ corresponding source file.
 HTMLize dired-marked files.
 
 \(fn ARG &optional TARGET-DIRECTORY)" t nil)
+
+;;;***
+
+;;;### (autoloads (ido-ubiquitous-function-compatibility-exceptions
+;;;;;;  ido-ubiquitous-command-compatibility-exceptions ido-ubiquitous-function-exceptions
+;;;;;;  ido-ubiquitous-command-exceptions ido-ubiquitous-mode ido-ubiquitous)
+;;;;;;  "ido-ubiquitous/ido-ubiquitous" "ido-ubiquitous/ido-ubiquitous.el"
+;;;;;;  (20710 23216))
+;;; Generated autoloads from ido-ubiquitous/ido-ubiquitous.el
+
+(let ((loads (get 'ido-ubiquitous 'custom-loads))) (if (member '"ido-ubiquitous/ido-ubiquitous" loads) nil (put 'ido-ubiquitous 'custom-loads (cons '"ido-ubiquitous/ido-ubiquitous" loads))))
+
+(defvar ido-ubiquitous-mode nil "\
+Non-nil if Ido-Ubiquitous mode is enabled.
+See the command `ido-ubiquitous-mode' for a description of this minor mode.
+Setting this variable directly does not take effect;
+either customize it (see the info node `Easy Customization')
+or call the function `ido-ubiquitous-mode'.")
+
+(custom-autoload 'ido-ubiquitous-mode "ido-ubiquitous/ido-ubiquitous" nil)
+
+(autoload 'ido-ubiquitous-mode "ido-ubiquitous/ido-ubiquitous" "\
+Use `ido-completing-read' instead of `completing-read' almost everywhere.
+
+  This mode has no effect unles `ido-mode' is also enabled.
+
+  If this mode causes problems for a function, you can force the
+  function to use the original completing read by using the macro
+  `ido-ubiquitous-disable-in'. For example, if a
+  function `foo' cannot work with ido-style completion, evaluate
+  the following (for example by putting it in your .emacs file):
+
+    (ido-ubiquitous-disable-in foo)
+
+\(fn &optional ARG)" t nil)
+
+(define-obsolete-variable-alias 'ido-ubiquitous 'ido-ubiquitous-mode "0.8")
+
+(define-obsolete-function-alias 'ido-ubiquitous 'ido-ubiquitous-mode "0.8")
+
+(defvar ido-ubiquitous-command-exceptions 'nil "\
+List of commands that should not be affected by `ido-ubiquitous'.
+
+Even when `ido-ubiquitous' mode is enabled, these commands will
+continue to use `completing-read' instead of
+`ido-completing-read'.
+
+Only *interactive* commands should go here. To disable
+ido-ubiquitous in non-interactive functions, customize
+`ido-ubiquitous-function-exceptions'.
+
+Note: this feature depends on the variable `this-command' being
+properly set to the name of the currently executing command.
+Depending on how the command is onvoked, this may or may not
+happen, so this feature may simply not work in some cases.")
+
+(custom-autoload 'ido-ubiquitous-command-exceptions "ido-ubiquitous/ido-ubiquitous" t)
+
+(define-obsolete-variable-alias 'ido-ubiquitous-exceptions 'ido-ubiquitous-command-exceptions "0.4")
+
+(defvar ido-ubiquitous-function-exceptions '(grep-read-files) "\
+List of functions in which to disable ido-ubiquitous.
+
+If you need to add a function to this list, please also file a
+bug report at
+https://github.com/DarwinAwardWinner/ido-ubiquitous/issues
+
+Note that certain functions, such as `read-file-name', must
+always have ido-ubiquitous disabled, and cannot be added
+here. (They are effectively a permanent part of this list
+already.)")
+
+(custom-autoload 'ido-ubiquitous-function-exceptions "ido-ubiquitous/ido-ubiquitous" nil)
+
+(defvar ido-ubiquitous-command-compatibility-exceptions 'nil "\
+List of commands in which to disable compatibility.
+
+See `ido-ubiquitous-enable-compatibility' for a description of
+the compatibility behavior. If this behavior causes a command to
+break, add that command to this list to disable compatibility
+mode for just that command.
+
+Only *interactive* commands should go here. To disable
+compatibility mode in non-interactive functions, customize
+`ido-ubiquitous-function-compatibility-exceptions'.")
+
+(custom-autoload 'ido-ubiquitous-command-compatibility-exceptions "ido-ubiquitous/ido-ubiquitous" t)
+
+(defvar ido-ubiquitous-function-compatibility-exceptions 'nil "\
+List of functions in which to disable ido-ubiquitous compatibility mode.
+
+See `ido-ubiquitous-enable-compatibility' for a description of
+the compatibility behavior. If this behavior causes a function to
+break, add that function to this list to disable compatibility
+mode for just that command.
+
+If you need to add a function to this list, please also file a
+bug report at
+https://github.com/DarwinAwardWinner/ido-ubiquitous/issues")
+
+(custom-autoload 'ido-ubiquitous-function-compatibility-exceptions "ido-ubiquitous/ido-ubiquitous" nil)
 
 ;;;***
 
@@ -2390,6 +2506,52 @@ Major mode for editing JavaScript code.
 \\{js3-mode-map}
 
 \(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (linum-update-window linum+-generate-linum-format
+;;;;;;  linum+-smart-format linum+-dynamic-format linum-format) "linum+/linum+"
+;;;;;;  "linum+/linum+.el" (20710 16777))
+;;; Generated autoloads from linum+/linum+.el
+
+(defvar linum-format 'smart "\
+Format used to display line numbers.
+
++ Either a format string like \"%7d\",
++ or `smart' to smart adapt the width by current max visible line number.
++ or `dynamic' to adapt the width as needed,
++ or a vector with one string element which uesed to generate
+  line number format by `format' with argument max visible line number 
+  of current buffer, see example `linum+-smart-format'
++ or a list with one string element which uesed to generate
+  line number format by `format' with argument max line number of current buffer,
+  see example `linum+-dynamic-format'
++ or a function that is called with a line number as its
+  argument and should evaluate to a string to be shown on that line.
+
+See also `linum-before-numbering-hook'.")
+
+(custom-autoload 'linum-format "linum+/linum+" t)
+
+(defvar linum+-dynamic-format "%%%dd|" "\
+Format used to generate line number format when `linum-format' is `dynamic'.")
+
+(custom-autoload 'linum+-dynamic-format "linum+/linum+" t)
+
+(defvar linum+-smart-format "%%%dd|" "\
+Format used to generate line number format when `linum-format' is `smart'.")
+
+(custom-autoload 'linum+-smart-format "linum+/linum+" t)
+
+(autoload 'linum+-generate-linum-format "linum+/linum+" "\
+Generate line number format by FORMAT-TYPE, LIMIT is `window-end' of win.
+
+\(fn FORMAT-TYPE LIMIT)" nil nil)
+
+(autoload 'linum-update-window "linum+/linum+" "\
+Update line numbers for the portion visible in window WIN.
+
+\(fn WIN)" nil nil)
 
 ;;;***
 
@@ -2770,6 +2932,88 @@ Special commands:
 
 ;;;***
 
+;;;### (autoloads (common-lisp-indent-function) "slime/contrib/slime-cl-indent"
+;;;;;;  "slime/contrib/slime-cl-indent.el" (20710 16383))
+;;; Generated autoloads from slime/contrib/slime-cl-indent.el
+
+(autoload 'common-lisp-indent-function "slime/contrib/slime-cl-indent" "\
+Function to indent the arguments of a Lisp function call.
+This is suitable for use as the value of the variable
+`lisp-indent-function'.  INDENT-POINT is the point at which the
+indentation function is called, and STATE is the
+`parse-partial-sexp' state at that position.  Browse the
+`lisp-indent' customize group for options affecting the behavior
+of this function.
+
+If the indentation point is in a call to a Lisp function, that
+function's common-lisp-indent-function property specifies how
+this function should indent it.  Possible values for this
+property are:
+
+* defun, meaning indent according to `lisp-indent-defun-method';
+  i.e., like (4 &lambda &body), as explained below.
+
+* any other symbol, meaning a function to call.  The function should
+  take the arguments: PATH STATE INDENT-POINT SEXP-COLUMN NORMAL-INDENT.
+  PATH is a list of integers describing the position of point in terms of
+  list-structure with respect to the containing lists.  For example, in
+  ((a b c (d foo) f) g), foo has a path of (0 3 1).  In other words,
+  to reach foo take the 0th element of the outermost list, then
+  the 3rd element of the next list, and finally the 1st element.
+  STATE and INDENT-POINT are as in the arguments to
+  `common-lisp-indent-function'.  SEXP-COLUMN is the column of
+  the open parenthesis of the innermost containing list.
+  NORMAL-INDENT is the column the indentation point was
+  originally in.  This function should behave like `lisp-indent-259'.
+
+* an integer N, meaning indent the first N arguments like
+  function arguments, and any further arguments like a body.
+  This is equivalent to (4 4 ... &body).
+
+* a list starting with `as' specifies an indirection: indentation is done as
+  if the form being indented had started with the second element of the list.
+
+* any other list.  The list element in position M specifies how to indent the
+  Mth function argument.  If there are fewer elements than function arguments,
+  the last list element applies to all remaining arguments.  The accepted list
+  elements are:
+
+  * nil, meaning the default indentation.
+
+  * an integer, specifying an explicit indentation.
+
+  * &lambda.  Indent the argument (which may be a list) by 4.
+
+  * &rest.  When used, this must be the penultimate element.  The
+    element after this one applies to all remaining arguments.
+
+  * &body.  This is equivalent to &rest lisp-body-indent, i.e., indent
+    all remaining elements by `lisp-body-indent'.
+
+  * &whole.  This must be followed by nil, an integer, or a
+    function symbol.  This indentation is applied to the
+    associated argument, and as a base indent for all remaining
+    arguments.  For example, an integer P means indent this
+    argument by P, and all remaining arguments by P, plus the
+    value specified by their associated list element.
+
+  * a symbol.  A function to call, with the 6 arguments specified above.
+
+  * a list, with elements as described above.  This applies when the
+    associated function argument is itself a list.  Each element of the list
+    specifies how to indent the associated argument.
+
+For example, the function `case' has an indent property
+\(4 &rest (&whole 2 &rest 1)), meaning:
+  * indent the first argument by 4.
+  * arguments after the first should be lists, and there may be any number
+    of them.  The first list element has an offset of 2, all the rest
+    have an offset of 2+1=3.
+
+\(fn INDENT-POINT STATE)" nil nil)
+
+;;;***
+
 ;;;### (autoloads (smex-initialize smex) "smex/smex" "smex/smex.el"
 ;;;;;;  (20707 33559))
 ;;; Generated autoloads from smex/smex.el
@@ -2781,6 +3025,17 @@ Special commands:
 
 (autoload 'smex-initialize "smex/smex" "\
 
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (web-mode) "web-mode/web-mode" "web-mode/web-mode.el"
+;;;;;;  (20710 15745))
+;;; Generated autoloads from web-mode/web-mode.el
+
+(autoload 'web-mode "web-mode/web-mode" "\
+Major mode for editing mixed HTML Templates.
 
 \(fn)" t nil)
 
@@ -2851,7 +3106,8 @@ See `yas-minor-mode' for more information on Yas minor mode.
 ;;;;;;  "ctable/ctable.el" "ctable/test-ctable.el" "deferred/concurrent-sample.el"
 ;;;;;;  "deferred/concurrent.el" "deferred/deferred-samples.el" "deferred/deferred.el"
 ;;;;;;  "deferred/test-concurrent.el" "deferred/test-deferred.el"
-;;;;;;  "el-get/el-get-autoloads.el" "el-get/el-get-build.el" "el-get/el-get-byte-compile.el"
+;;;;;;  "dired-details/dired-details.el" "el-get/el-get-autoloads.el"
+;;;;;;  "el-get/el-get-build.el" "el-get/el-get-byte-compile.el"
 ;;;;;;  "el-get/el-get-core.el" "el-get/el-get-custom.el" "el-get/el-get-dependencies.el"
 ;;;;;;  "el-get/el-get-install.el" "el-get/el-get-methods.el" "el-get/el-get-notify.el"
 ;;;;;;  "el-get/el-get-recipes.el" "el-get/el-get-status.el" "epc/epc.el"
@@ -2866,15 +3122,38 @@ See `yas-minor-mode' for more information on Yas minor mode.
 ;;;;;;  "expand-region/python-el-expansions.el" "expand-region/python-el-fgallina-expansions.el"
 ;;;;;;  "expand-region/python-mode-expansions.el" "expand-region/ruby-mode-expansions.el"
 ;;;;;;  "expand-region/text-mode-expansions.el" "fuzzy/fuzzy.el"
-;;;;;;  "helm/helm-pkg.el" "helm/helm-plugin.el" "jedi/test-jedi.el"
-;;;;;;  "jedi/tryout-jedi.el" "less/less.el" "magit/50magit.el" "magit/magit-bisect.el"
-;;;;;;  "magit/magit-key-mode.el" "magit/magit-pkg.el" "midje-mode/clojure-jump-to-file.el"
+;;;;;;  "helm/helm-pkg.el" "helm/helm-plugin.el" "html5/h5-maint.el"
+;;;;;;  "html5/html5-langs.el" "html5/html5-ncr.el" "html5/html5-tok.el"
+;;;;;;  "html5/whattf-dt.el" "ido-ubiquitous/ido-ubiquitous-autoloads.el"
+;;;;;;  "ido-ubiquitous/ido-ubiquitous-pkg.el" "inf-ruby/inf-ruby.el"
+;;;;;;  "jedi/test-jedi.el" "jedi/tryout-jedi.el" "less/less.el"
+;;;;;;  "magit/50magit.el" "magit/magit-bisect.el" "magit/magit-key-mode.el"
+;;;;;;  "magit/magit-pkg.el" "midje-mode/clojure-jump-to-file.el"
 ;;;;;;  "midje-mode/midje-mode-pkg.el" "midje-mode/midje-mode-praise.el"
 ;;;;;;  "popup/popup.el" "rainbow-mode/rainbow-mode-autoloads.el"
-;;;;;;  "rainbow-mode/rainbow-mode-pkg.el" "speedbar-extension/speedbar-extension.el"
+;;;;;;  "rainbow-mode/rainbow-mode-pkg.el" "slime/contrib/bridge.el"
+;;;;;;  "slime/contrib/inferior-slime.el" "slime/contrib/slime-asdf.el"
+;;;;;;  "slime/contrib/slime-autodoc.el" "slime/contrib/slime-banner.el"
+;;;;;;  "slime/contrib/slime-c-p-c.el" "slime/contrib/slime-clipboard.el"
+;;;;;;  "slime/contrib/slime-compiler-notes-tree.el" "slime/contrib/slime-editing-commands.el"
+;;;;;;  "slime/contrib/slime-enclosing-context.el" "slime/contrib/slime-fancy-inspector.el"
+;;;;;;  "slime/contrib/slime-fancy.el" "slime/contrib/slime-fontifying-fu.el"
+;;;;;;  "slime/contrib/slime-fuzzy.el" "slime/contrib/slime-highlight-edits.el"
+;;;;;;  "slime/contrib/slime-hyperdoc.el" "slime/contrib/slime-indentation.el"
+;;;;;;  "slime/contrib/slime-mdot-fu.el" "slime/contrib/slime-media.el"
+;;;;;;  "slime/contrib/slime-motd.el" "slime/contrib/slime-mrepl.el"
+;;;;;;  "slime/contrib/slime-package-fu.el" "slime/contrib/slime-parse.el"
+;;;;;;  "slime/contrib/slime-presentation-streams.el" "slime/contrib/slime-presentations.el"
+;;;;;;  "slime/contrib/slime-references.el" "slime/contrib/slime-repl.el"
+;;;;;;  "slime/contrib/slime-sbcl-exts.el" "slime/contrib/slime-scheme.el"
+;;;;;;  "slime/contrib/slime-scratch.el" "slime/contrib/slime-snapshot.el"
+;;;;;;  "slime/contrib/slime-sprof.el" "slime/contrib/slime-tramp.el"
+;;;;;;  "slime/contrib/slime-typeout-frame.el" "slime/contrib/slime-xref-browser.el"
+;;;;;;  "slime/hyperspec.el" "slime/slime-autoloads.el" "slime/slime.el"
+;;;;;;  "speedbar-extension/speedbar-extension.el" "workgroups/workgroups.el"
 ;;;;;;  "yasnippet-config/yasnippet-config.el" "yasnippet/dropdown-list.el"
 ;;;;;;  "yasnippet/yasnippet-debug.el" "yasnippet/yasnippet-tests.el")
-;;;;;;  (20710 9432 304856))
+;;;;;;  (20710 23224 131872))
 
 ;;;***
 

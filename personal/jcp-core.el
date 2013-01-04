@@ -2,10 +2,18 @@
 
 (require 'cl)
 (require 'color-theme)
+(require 'find-recursive)
+(require 'highlight-current-line)
 (require 'ido)
-(require 'package)
+(require 'linum)
 (require 'markdown-mode)
-
+(require 'midnight)
+(require 'package)
+(require 'package)
+(require 'recentf)
+(require 'speedbar)
+(require 'uniquify)
+(require 'workgroups)
 
 ;;;;;;;;;;;;;;;;;
 ;; SYSTEM SETUP;;
@@ -58,6 +66,8 @@
                  (not (equal f ".")))
         (add-to-list 'load-path name)))))
 
+;; Not really used anymore because of el-get, but leaving it just in
+;; case...
 (setq package-archives
       '(("ELPA" . "http://tromey.com/elpa/")
         ("gnu" . "http://elpa.gnu.org/packages/")
@@ -80,9 +90,10 @@
 ;; color theme-ing
 (setq color-theme-is-global t)
 (color-theme-initialize)
-(if window-system
-    (color-theme-tomorrow-night-eighties) ;; GUI's
-    (color-theme-ir-black)) ;; terminals
+
+;; only load this color theme if we're in a gui:
+(load-file (concat personal-dir "color-theme-jcp-tres.el"))
+(if window-system (color-theme-jcp-tres))
 
 
 ;; free from the hell of annoying buffers such like *Help*,
@@ -96,6 +107,34 @@
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 
+;;;;;;;;;;;;;
+;; Aliases ;;
+;;;;;;;;;;;;;
+
+; modes
+(defalias 'pym 'python-mode)
+(defalias 'jsm 'js2-mode)
+(defalias 'rbm 'ruby-mode)
+(defalias 'cssm 'scss-mode)
+(defalias 'tm 'text-mode)
+(defalias 'ssm 'shell-script-mode)
+(defalias 'elm 'emacs-lisp-mode)
+(defalias 'wsm 'whitespace-mode)
+(defalias 'gwsm 'global-whitespace-mode)
+
+; commands
+(defalias 'cr 'comment-region)
+(defalias 'ucr 'uncomment-region)
+
+;;;;;;;;;;;;;;;;
+;; File Loads ;;
+;;;;;;;;;;;;;;;;
+
+(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.txt\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("bashrc\\'" . shell-script-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; HELM CONFIGURATION ;;
@@ -168,7 +207,7 @@
         try-complete-lisp-symbol))
 
 ;; autocompletion
-(global-auto-complete-mode t)
+;; (global-auto-complete-mode t)
 (setq ac-auto-start t)                  ;automatically start
 (setq ac-dwim t)                        ;Do what i mean
 (setq ac-override-local-map nil)        ;don't override local map
@@ -257,6 +296,16 @@
 (load-persistent-scratch)
 (push #'save-persistent-scratch kill-emacs-hook)
 
+;; midnight setup. kind of a cron/cleanup mode.
+(setq midnight-mode 't)
+
+;; revert buffers automatically when underlying files are changed externally
+(global-auto-revert-mode t)
+
+;; Clean up whitespace
+(require 'jcp-functions)
+(add-hook 'before-save-hook 'cleanup-buffer-safe)
+
 ;;;;;;;;;;;;;;;
 ;; Yasnippet ;;
 ;;;;;;;;;;;;;;;
@@ -304,28 +353,33 @@
 ;; MISC SETUP ;;
 ;;;;;;;;;;;;;;;;
 
+;; Use ido everywhere
+(require 'ido-ubiquitous)
+(ido-ubiquitous-mode 1)
+
+;; Fix ido-ubiquitous for newer packages
+(defmacro ido-ubiquitous-use-new-completing-read (cmd package)
+  `(eval-after-load ,package
+     '(defadvice ,cmd (around ido-ubiquitous-new activate)
+        (let ((ido-ubiquitous-enable-compatibility nil))
+          ad-do-it))))
+
+(ido-ubiquitous-use-new-completing-read webjump 'webjump)
+(ido-ubiquitous-use-new-completing-read yas/expand 'yasnippet)
+(ido-ubiquitous-use-new-completing-read yas/visit-snippet-file 'yasnippet)
+
 ;; Deleted files go to the trash
 (setq delete-by-moving-to-trash t)
 
 ;; Stop opening the debugger on error
 (setq debug-on-error nil)
-(setq-global debug-on-error nil)
+(setq-default debug-on-error nil)
 
 ;; fixes missing character issues in ansi-term
 (setq ansi-color-for-comint-mode t)
 
-;; midnight setup. kind of a cron/cleanup mode.
-(setq midnight-mode 't)
-
-;; revert buffers automatically when underlying files are changed externally
-(global-auto-revert-mode t)
-
 ;; y/n instead of yes/no
 (fset 'yes-or-no-p 'y-or-n-p)
-
-;; skip the gnu splash screen, take me to scratch
-(setq inhibit-startup-echo-area-message t)
-(setq inhibit-startup-message t)
 
 ;; Set the meta key to command on OSX (its set to 'option' in emacs23)
 (setq mac-command-modifier 'meta)

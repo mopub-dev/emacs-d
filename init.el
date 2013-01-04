@@ -2,8 +2,6 @@
 ;; john.pena@gmail.com ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(require 'cl)
-
 (message "Loading Emacs settings")
 
 ;; Turn off mouse interface early in startup to avoid momentary display
@@ -11,8 +9,9 @@
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
-;; No splash screen please ... jeez
+;; No splash screen
 (setq inhibit-startup-message t)
+(setq inhibit-startup-echo-area-message t)
 
 ;; Set up all of the load directories.
 
@@ -21,7 +20,7 @@
 
 (defvar plugins-dir (concat emacs-dir "plugins/")
   "All of the plugins that I didn't write go in here. This should only
-  have non-ELPA modules.")
+  have non-el-get modules.")
 
 (defvar personal-dir (concat emacs-dir "personal/")
   "My personal configs.")
@@ -44,11 +43,6 @@
 
 (el-get 'sync)
 
-;; Load plugins ;;
-(add-to-list 'load-path (concat plugins-dir "auto-complete/"))
-(add-to-list 'load-path (concat plugins-dir "color-theme/"))
-(add-to-list 'load-path (concat plugins-dir "helm/"))
-(add-to-list 'load-path (concat plugins-dir "slime/"))
 
 ;; personal
 ;; don't change the order, jcp-keys uses defuns from all of these
@@ -65,66 +59,7 @@
 (require 'jcp-erc)
 
 ;; Load other plugins
-(require 'find-recursive)
-(require 'highlight-current-line)
-(require 'ido)
-(require 'linum)
-(require 'midnight)
-(require 'package)
-(require 'recentf)
-(require 'speedbar)
-(require 'uniquify)
-(require 'workgroups)
 
-
-;; SLIME
-(setq inferior-lisp-program "/usr/local/bin/sbcl")
-(require 'slime)
-(slime-setup)
-
-
-;;;;;;;;;;;;;;;;;;;;;;
-;; General Settings ;;
-;;;;;;;;;;;;;;;;;;;;;;
-
-
-
-;; CSS and Rainbow modes
-(defun all-scss-modes()
-  (scss-mode)
-  (rainbow-mode))
-
-;; Load both major and minor modes in one call based on file type
-(add-to-list 'auto-mode-alist '("\\.scss\\'" . all-scss-modes))
-(add-to-list 'auto-mode-alist '("Gemfile\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
-(add-to-list 'auto-mode-alist '("\\.html\\'" . django-html-mumamo-mode))
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.txt\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("bashrc\\'" . shell-script-mode))
-(add-to-list 'auto-mode-alist '("\\.coffee\\'" . coffee-mode))
-(add-to-list 'auto-mode-alist '("Cakefile" . coffee-mode))
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-
-;;;;;;;;;;;;;
-;; Aliases ;;
-;;;;;;;;;;;;;
-
-; modes
-(defalias 'pym 'python-mode)
-(defalias 'jsm 'js-mode)
-(defalias 'rbm 'ruby-mode)
-(defalias 'cssm 'scss-mode)
-(defalias 'tm 'text-mode)
-(defalias 'ssm 'shell-script-mode)
-(defalias 'elm 'emacs-lisp-mode)
-(defalias 'wsm 'whitespace-mode)
-(defalias 'gwsm 'global-whitespace-mode)
-
-; commands
-(defalias 'cr 'comment-region)
-(defalias 'ucr 'uncomment-region)
 
 ;; I really need to get rid of this module.
 (load-file "~/.emacs.d/plugins/nxhtml/autostart.el")
@@ -142,6 +77,7 @@
  '(send-mail-function (quote mailclient-send-it))
  '(standard-indent 4)
  '(warning-minimum-level :error))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

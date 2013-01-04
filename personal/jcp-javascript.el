@@ -91,8 +91,8 @@
 (add-hook 'js2-mode-hook 'my-js2-mode-hook)
 (setq js2-basic-offset 1)
 (setq js2-use-font-lock-faces t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 
 ;;;;;;;;;;;;;;;;;;
 ;; COFFEESCRIPT ;;
@@ -101,26 +101,29 @@
 ;; I don't really use coffeescript much, but If I start to I'll
 ;; separate this out
 
-;; (require 'coffee-mode)
+(require 'coffee-mode)
 
-;; (defun jcp-coffee-mode-defaults ()
-;;   "coffee-mode-defaults"
+(defun jcp-coffee-mode-defaults ()
+  "coffee-mode-defaults"
 
-;;   ;; CoffeeScript uses two spaces.
-;;   (set (make-local-variable 'tab-width) 2)
+  ;; CoffeeScript uses two spaces.
+  (set (make-local-variable 'tab-width) 2)
 
-;;   ;; If you don't have js2-mode
-;;   (setq coffee-js-mode 'js2-mode)
+  ;; If you don't have js2-mode
+  (setq coffee-js-mode 'js2-mode)
 
-;;   ;; *Messages* spam
-;;   (setq coffee-debug-mode t)
+  ;; *Messages* spam
+  (setq coffee-debug-mode t)
 
-;;   ;; electric-indent doesn't play nice with coffee-mode's "smart"
-;;   ;; indent
-;;   (electric-indent-mode -1))
+  ;; electric-indent doesn't play nice with coffee-mode's "smart"
+  ;; indent
+  (electric-indent-mode -1))
 
-;; (setq jcp-coffee-mode-hook 'jcp-coffee-mode-defaults)
+(setq jcp-coffee-mode-hook 'jcp-coffee-mode-defaults)
 
-;; (add-hook 'coffee-mode-hook (lambda () (run-hooks 'jcp-coffee-mode-hook)))
+(add-hook 'coffee-mode-hook (lambda () (run-hooks 'jcp-coffee-mode-hook)))
+
+(add-to-list 'auto-mode-alist '("\\.coffee\\'" . coffee-mode))
+(add-to-list 'auto-mode-alist '("Cakefile" . coffee-mode))
 
 (provide 'jcp-javascript)

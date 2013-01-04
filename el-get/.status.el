@@ -1,6 +1,5 @@
 ((ace-jump-mode status "installed" recipe
                 (:name ace-jump-mode :website "https://github.com/winterTTr/ace-jump-mode/wiki" :description "A quick cursor location minor mode for emacs" :type github :pkgname "winterTTr/ace-jump-mode" :features ace-jump-mode))
- (ansi-color status "required" recipe nil)
  (auto-complete status "installed" recipe
                 (:name auto-complete :website "http://cx4a.org/software/auto-complete/" :description "The most intelligent auto-completion extension." :type github :pkgname "auto-complete/auto-complete" :depends
                        (popup fuzzy)))
@@ -25,6 +24,8 @@
          (:name ctable :description "Table Component for elisp" :type github :pkgname "kiwanami/emacs-ctable"))
  (deferred status "installed" recipe
    (:name deferred :description "Simple asynchronous functions for emacs lisp" :website "https://github.com/kiwanami/emacs-deferred" :type github :pkgname "kiwanami/emacs-deferred" :features "deferred"))
+ (dired-details status "installed" recipe
+                (:name dired-details :description "Make file details hide-able in dired" :type emacswiki :features dired-details))
  (dpaste status "installed" recipe
          (:name dpaste :auto-generated t :type emacswiki :description "Emacs integration for dpaste.com" :website "https://raw.github.com/emacsmirror/emacswiki.org/master/dpaste.el"))
  (el-get status "installed" recipe
@@ -48,8 +49,21 @@
        (:name helm :description "Emacs incremental and narrowing framework" :type github :pkgname "emacs-helm/helm" :features helm-config))
  (hexrgb status "installed" recipe
          (:name hexrgb :auto-generated t :type emacswiki :description "Functions to manipulate colors, including RGB hex strings." :website "https://raw.github.com/emacsmirror/emacswiki.org/master/hexrgb.el"))
+ (highlight-current-line status "installed" recipe
+                         (:name highlight-current-line :auto-generated t :type emacswiki :description "highlight line where the cursor is." :website "https://raw.github.com/emacsmirror/emacswiki.org/master/highlight-current-line.el"))
+ (html5 status "installed" recipe
+        (:name html5 :website "http://github.com/hober/html5-el" :description "Umbrella project for projects adding HTML5 support to Emacs.\n  This recipe is a work in progress." :type git :url "http://github.com/hober/html5-el" :post-init
+               (eval-after-load "rng-loc"
+                 '(add-to-list 'rng-schema-locating-files
+                               (concat el-get-dir "html5/schemas.xml")))
+               :features whattf-dt :build
+               ("make relaxng")))
  (htmlize status "installed" recipe
           (:name htmlize :website "http://www.emacswiki.org/emacs/Htmlize" :description "Convert buffer text and decorations to HTML." :type http :url "http://fly.srk.fer.hr/~hniksic/emacs/htmlize.el.cgi" :localname "htmlize.el"))
+ (ido-ubiquitous status "installed" recipe
+                 (:name ido-ubiquitous :description "Use ido (nearly) everywhere" :type elpa))
+ (inf-ruby status "installed" recipe
+           (:name inf-ruby :type http :description "Inferior Ruby Mode - ruby process in a buffer." :url "http://bugs.ruby-lang.org/projects/ruby-trunk/repository/raw/misc/inf-ruby.el"))
  (jedi status "installed" recipe
        (:name jedi :description "An awesome Python auto-completion for Emacs" :type github :pkgname "tkf/emacs-jedi" :build
               (("make" "requirements"))
@@ -63,6 +77,8 @@
                   (autoload 'js3-mode "js3" nil t)))
  (less status "installed" recipe
        (:name less :auto-generated t :type emacswiki :description "less style view mode" :website "https://raw.github.com/emacsmirror/emacswiki.org/master/less.el"))
+ (linum+ status "installed" recipe
+         (:name linum+ :auto-generated t :type emacswiki :description "Extension of linum" :website "https://raw.github.com/emacsmirror/emacswiki.org/master/linum+.el"))
  (magit status "installed" recipe
         (:name magit :website "https://github.com/magit/magit#readme" :description "It's Magit! An Emacs mode for Git." :type github :pkgname "magit/magit" :info "." :build
                `(("make" ,(format "EMACS=%s" el-get-emacs)
@@ -118,11 +134,24 @@
                                 '("\\.scss$" . sass-mode))))
  (scss-mode status "installed" recipe
             (:name scss-mode :description "Major mode for editing SCSS files(http://sass-lang.com)" :type github :pkgname "antonj/scss-mode" :features scss-mode))
+ (slime status "installed" recipe
+        (:name slime :description "Superior Lisp Interaction Mode for Emacs" :type github :autoloads "slime-autoloads" :info "doc" :pkgname "nablaone/slime" :load-path
+               ("." "contrib")
+               :compile
+               (".")
+               :build
+               '(("make" "-C" "doc" "slime.info"))
+               :post-init
+               (slime-setup)))
  (smex status "installed" recipe
        (:name smex :description "M-x interface with Ido-style fuzzy matching." :type github :pkgname "nonsequitur/smex" :features smex :post-init
               (smex-initialize)))
  (speedbar-extension status "installed" recipe
                      (:name speedbar-extension :auto-generated t :type emacswiki :description "Some extensions for speedbar" :website "https://raw.github.com/emacsmirror/emacswiki.org/master/speedbar-extension.el"))
+ (web-mode status "installed" recipe
+           (:name web-mode :description "emacs major mode for editing PHP/JSP/ASP HTML templates (with embedded CSS and JS blocks)" :type github :pkgname "fxbois/web-mode"))
+ (workgroups status "installed" recipe
+             (:name workgroups :description "Workgroups for windows (for Emacs)" :type github :pkgname "tlh/workgroups.el" :features "workgroups"))
  (yaml-mode status "installed" recipe
             (:name yaml-mode :description "Simple major mode to edit YAML file for emacs" :type github :pkgname "yoshiki/yaml-mode"))
  (yasnippet status "installed" recipe
