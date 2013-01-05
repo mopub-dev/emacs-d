@@ -353,6 +353,10 @@
 ;; MISC SETUP ;;
 ;;;;;;;;;;;;;;;;
 
+;; Load pomodoro into the mode line
+;; https://github.com/baudtack/pomodoro.el
+;; (pomodoro-add-to-mode-line)
+
 ;; Use ido everywhere
 (require 'ido-ubiquitous)
 (ido-ubiquitous-mode 1)
