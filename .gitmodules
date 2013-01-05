@@ -1,0 +1,104 @@
+[submodule "el-get/ace-jump-mode"]
+    path = el-get/ace-jump-mode
+    url = http://github.com/winterTTr/ace-jump-mode.git
+[submodule "el-get/auto-complete"]
+    path = el-get/auto-complete
+    url = http://github.com/auto-complete/auto-complete.git
+[submodule "el-get/browse-kill-ring"]
+    path = el-get/browse-kill-ring
+    url = http://github.com/browse-kill-ring/browse-kill-ring.git
+[submodule "el-get/ctable"]
+    path = el-get/ctable
+    url = http://github.com/kiwanami/emacs-ctable.git
+[submodule "el-get/deferred"]
+    path = el-get/deferred
+    url = http://github.com/kiwanami/emacs-deferred.git
+[submodule "el-get/el-get"]
+    path = el-get/el-get
+    url = http://github.com/dimitri/el-get.git
+[submodule "el-get/epc"]
+    path = el-get/epc
+    url = http://github.com/kiwanami/emacs-epc.git
+[submodule "el-get/expand-region"]
+    path = el-get/expand-region
+    url = http://github.com/magnars/expand-region.el.git
+[submodule "el-get/flymake"]
+    path = el-get/flymake
+    url = http://github.com/illusori/emacs-flymake.git
+[submodule "el-get/flymake-cursor"]
+    path = el-get/flymake-cursor
+    url = http://github.com/illusori/emacs-flymake-cursor.git
+[submodule "el-get/fuzzy"]
+    path = el-get/fuzzy
+    url = http://github.com/auto-complete/fuzzy-el.git
+[submodule "el-get/midje-mode"]
+    path = el-get/midje-mode
+    url = http://github.com/dnaumov/midje-mode.git
+[submodule "el-get/nginx-mode"]
+    path = el-get/nginx-mode
+    url = http://github.com/ajc/nginx-mode.git
+[submodule "el-get/pbcopy"]
+    path = el-get/pbcopy
+    url = http://github.com/jkp/pbcopy.el.git
+[submodule "el-get/rainbow-delimiters"]
+    path = el-get/rainbow-delimiters
+    url = http://github.com/jlr/rainbow-delimiters.git
+[submodule "el-get/scss-mode"]
+    path = el-get/scss-mode
+    url = http://github.com/antonj/scss-mode.git
+[submodule "el-get/slime"]
+    path = el-get/slime
+    url = http://github.com/nablaone/slime.git
+[submodule "el-get/workgroups"]
+    path = el-get/workgroups
+    url = http://github.com/tlh/workgroups.el.git
+[submodule "el-get/coffee-mode"]
+    path = el-get/coffee-mode
+    url = http://github.com/defunkt/coffee-mode.git
+[submodule "el-get/dpaste"]
+    path = el-get/dpaste
+[submodule "el-get/haml-mode"]
+    path = el-get/haml-mode
+    url = http://github.com/nex3/haml-mode.git
+[submodule "el-get/helm"]
+    path = el-get/helm
+    url = http://github.com/emacs-helm/helm.git
+[submodule "el-get/html5"]
+    path = el-get/html5
+    url = http://github.com/hober/html5-el
+[submodule "el-get/jedi"]
+    path = el-get/jedi
+    url = http://github.com/tkf/emacs-jedi.git
+[submodule "el-get/js2-mode"]
+    path = el-get/js2-mode
+    url = http://github.com/mooz/js2-mode.git
+[submodule "el-get/js3-mode"]
+    path = el-get/js3-mode
+    url = http://github.com/thomblake/js3-mode.git
+[submodule "el-get/magit"]
+    path = el-get/magit
+    url = http://github.com/magit/magit.git
+[submodule "el-get/markdown-mode"]
+    path = el-get/markdown-mode
+    url = git://jblevins.org/git/markdown-mode.git
+[submodule "el-get/popup"]
+    path = el-get/popup
+    url = http://github.com/auto-complete/popup-el.git
+[submodule "el-get/popwin"]
+    path = el-get/popwin
+    url = http://github.com/m2ym/popwin-el.git
+[submodule "el-get/sass-mode"]
+    path = el-get/sass-mode
+    url = http://github.com/nex3/sass-mode.git
+[submodule "el-get/smex"]
+    path = el-get/smex
+    url = http://github.com/nonsequitur/smex.git
+[submodule "el-get/web-mode"]
+    path = el-get/web-mode
+    url = http://github.com/fxbois/web-mode.git
+[submodule "el-get/yaml-mode"]
+    path = el-get/yaml-mode
+    url = http://github.com/yoshiki/yaml-mode.git
+[submodule "el-get/yasnippet"]
+    path = el-get/yasnippet
+    url = http://github.com/capitaomorte/yasnippet.git
