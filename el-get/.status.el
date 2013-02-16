@@ -20,6 +20,12 @@
                      (progn
                        (color-theme-initialize)
                        (setq color-theme-is-global t))))
+ (color-theme-almost-monokai status "installed" recipe
+                             (:name color-theme-almost-monokai :description "A beautiful, fruity, calm, yet dark color theme for Emacs." :type github :pkgname "lut4rp/almost-monokai" :depends color-theme :prepare
+                                    (autoload 'color-theme-almost-monokai "color-theme-almost-monokai" "color-theme: almost-monokai" t)))
+ (color-theme-desert status "installed" recipe
+                     (:name color-theme-desert :description "A port of VIM's desert color theme to Emacs." :type github :pkgname "superbobry/color-theme-desert" :depends color-theme :prepare
+                            (autoload 'color-theme-desert "color-theme-desert" "color-theme: desert" t)))
  (ctable status "installed" recipe
          (:name ctable :description "Table Component for elisp" :type github :pkgname "kiwanami/emacs-ctable"))
  (deferred status "installed" recipe
@@ -41,6 +47,9 @@
           (:name flymake :description "Continuous syntax checking for Emacs." :type github :pkgname "illusori/emacs-flymake"))
  (flymake-cursor status "installed" recipe
                  (:name flymake-cursor :type github :pkgname "illusori/emacs-flymake-cursor" :description "displays flymake error msg in minibuffer after delay (illusori/github)" :website "http://github.com/illusori/emacs-flymake-cursor"))
+ (flymake-sass status "installed" recipe
+               (:name flymake-sass :type github :pkgname "purcell/flymake-sass" :description "Flymake handler for sass files" :website "http://github.com/purcell/flymake-sass" :post-init
+                      (add-hook 'sass-mode-hook 'flymake-sass-load)))
  (fuzzy status "installed" recipe
         (:name fuzzy :website "https://github.com/auto-complete/fuzzy-el" :description "Fuzzy matching utilities for GNU Emacs" :type github :pkgname "auto-complete/fuzzy-el"))
  (haml-mode status "installed" recipe
@@ -175,4 +184,7 @@
                                         "snippets")))))
                    :compile nil :submodule nil))
  (yasnippet-config status "installed" recipe
-                   (:name yasnippet-config :auto-generated t :type emacswiki :description "Configuration of yasnippet.el" :website "https://raw.github.com/emacsmirror/emacswiki.org/master/yasnippet-config.el")))
+                   (:name yasnippet-config :auto-generated t :type emacswiki :description "Configuration of yasnippet.el" :website "https://raw.github.com/emacsmirror/emacswiki.org/master/yasnippet-config.el"))
+ (zenburn-theme status "installed" recipe
+                (:name zenburn-theme :description "Zenburn theme for Emacs" :type http :url "https://raw.github.com/djcb/elisp/master/themes/zenburn-theme.el" :post-init
+                       (add-to-list 'custom-theme-load-path default-directory))))

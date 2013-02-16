@@ -93,7 +93,7 @@
 
 ;; only load this color theme if we're in a gui:
 (load-file (concat personal-dir "color-theme-jcp-tres.el"))
-(if window-system (color-theme-jcp-tres))
+(if window-system (color-theme-monokai))
 
 
 ;; free from the hell of annoying buffers such like *Help*,

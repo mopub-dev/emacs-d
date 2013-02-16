@@ -21,7 +21,7 @@
 (add-hook 'python-mode-hook 'highlight-indentation)
 
 ;; Turn on/off parens pairing. On by default. Set skeleton-pair to nil to turn it off.
-;; (setq skeleton-pair nil) 
+;; (setq skeleton-pair nil)
 
 ;; Better autocomplete for python
 (require 'jedi)
@@ -31,7 +31,7 @@
 (global-hl-line-mode t)
 ;; change with the color that you like
 ;; for a list of colors: http://raebear.net/comp/emacscolors.html
-(set-face-background 'hl-line "black") 
+(set-face-background 'hl-line "black")
 
 ;; ipython configuration
 (epy-setup-ipython)

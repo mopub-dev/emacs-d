@@ -19,4 +19,6 @@
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . all-scss-modes))
 (add-to-list 'auto-mode-alist '("\\.html\\'" . django-html-mumamo-mode))
 
+(global-hl-line-mode nil)
+
 (provide 'jcp-htmlcss)

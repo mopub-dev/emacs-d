@@ -11,11 +11,11 @@
 ;; Open Next Line
 (require 'open-next-line)
 
-;; Auto Completion
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories 
-	     (concat epy-install-dir "auto-complete/ac-dict"))
-(ac-config-default)
+;; ;; Auto Completion
+;; (require 'auto-complete-config)
+;; (add-to-list 'ac-dictionary-directories
+;;              (concat epy-install-dir "auto-complete/ac-dict"))
+;; (ac-config-default)
 
 ;; Yasnippet - force the loading of the custom version of yasnippet
 (require 'yasnippet (concat epy-install-dir "extensions/yasnippet/yasnippet"))
@@ -110,11 +110,11 @@ original" (interactive)
   (interactive)
   (let (start end bds)
     (if (and transient-mark-mode
-	   mark-active)
-	(setq start (region-beginning) end (region-end))
+       mark-active)
+    (setq start (region-beginning) end (region-end))
       (progn
-	(setq bds (bounds-of-thing-at-point 'line))
-	(setq start (car bds) end (cdr bds))))
+    (setq bds (bounds-of-thing-at-point 'line))
+    (setq start (car bds) end (cdr bds))))
   (python-indent-shift-left start end))
   (setq deactivate-mark nil)
 )
@@ -123,11 +123,11 @@ original" (interactive)
   (interactive)
   (let (start end bds)
     (if (and transient-mark-mode
-	   mark-active)
-	(setq start (region-beginning) end (region-end))
+       mark-active)
+    (setq start (region-beginning) end (region-end))
       (progn
-	(setq bds (bounds-of-thing-at-point 'line))
-	(setq start (car bds) end (cdr bds))))
+    (setq bds (bounds-of-thing-at-point 'line))
+    (setq start (car bds) end (cdr bds))))
   (python-indent-shift-right start end))
   (setq deactivate-mark nil)
 )
@@ -136,12 +136,12 @@ original" (interactive)
 (global-set-key (kbd "M-<down>") 'move-text-down)
 
 (add-hook 'python-mode-hook
-	  (lambda ()
-	    (define-key python-mode-map (kbd "M-<right>")
-	      'balle-python-shift-right)
-	    (define-key python-mode-map (kbd "M-<left>")
-	      'balle-python-shift-left))
-	  )
+      (lambda ()
+        (define-key python-mode-map (kbd "M-<right>")
+          'balle-python-shift-right)
+        (define-key python-mode-map (kbd "M-<left>")
+          'balle-python-shift-left))
+      )
 
 ;; Other useful stuff
 
